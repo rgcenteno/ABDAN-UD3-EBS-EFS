@@ -1,0 +1,188 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+  UD3 - Volumen EBS y sistema de archivos EFS cifrados con una clave propia de KMS,
+  con ciclo de vida, copias automaticas, politica de acceso y punto de acceso.
+
+Parameters:
+  VpcId:
+    Type: AWS::EC2::VPC::Id
+    Description: VPC de las instancias cliente
+  SubredA:
+    Type: AWS::EC2::Subnet::Id
+    Description: Subred (preferiblemente privada) en la primera AZ
+  SubredB:
+    Type: AWS::EC2::Subnet::Id
+    Description: Subred (preferiblemente privada) en la segunda AZ
+  GrupoSeguridadClientes:
+    Type: AWS::EC2::SecurityGroup::Id
+    Description: Grupo de seguridad de las instancias que montaran EFS
+  ZonaVolumen:
+    Type: AWS::EC2::AvailabilityZone::Name
+    Description: AZ del volumen EBS (debe coincidir con la de la instancia)
+  InstanciaId:
+    Type: String
+    Default: ""
+    Description: (Opcional) instancia a la que adjuntar el volumen EBS
+  RolClientes:
+    Type: String
+    Default: LabRole
+    Description: Rol IAM de las instancias cliente (LabRole en el Learner Lab)
+
+Conditions:
+  AdjuntarVolumen: !Not [!Equals [!Ref InstanciaId, ""]]
+
+Resources:
+  # ---------------------------------------------------------------- Cifrado
+  ClaveAlmacenamiento:
+    Type: AWS::KMS::Key
+    Properties:
+      Description: Clave para EBS y EFS de la UD3
+      EnableKeyRotation: true
+      PendingWindowInDays: 7
+      KeyPolicy:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: AdministracionPorLaCuenta
+            Effect: Allow
+            Principal:
+              AWS: !Sub arn:aws:iam::${AWS::AccountId}:root
+            Action: kms:*
+            Resource: "*"
+
+  AliasClaveAlmacenamiento:
+    Type: AWS::KMS::Alias
+    Properties:
+      AliasName: alias/ud3-almacenamiento
+      TargetKeyId: !Ref ClaveAlmacenamiento
+
+  # ---------------------------------------------------------------- EBS
+  VolumenDatos:
+    Type: AWS::EC2::Volume
+    DeletionPolicy: Snapshot          # al borrar la pila se crea una instantanea final
+    UpdateReplacePolicy: Snapshot     # si un cambio sustituye el volumen, tambien
+    Properties:
+      AvailabilityZone: !Ref ZonaVolumen
+      Size: 10
+      VolumeType: gp3
+      Iops: 3000
+      Throughput: 125
+      Encrypted: true
+      KmsKeyId: !GetAtt ClaveAlmacenamiento.Arn
+      Tags:
+        - { Key: Name, Value: ud3-datos }
+        - { Key: backup, Value: diario }
+
+  AdjuntoVolumen:
+    Type: AWS::EC2::VolumeAttachment
+    Condition: AdjuntarVolumen
+    Properties:
+      InstanceId: !Ref InstanciaId
+      VolumeId: !Ref VolumenDatos
+      Device: /dev/sdf
+
+  # ---------------------------------------------------------------- EFS: red
+  GrupoSeguridadEfs:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: NFS solo desde las instancias cliente
+      VpcId: !Ref VpcId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 2049
+          ToPort: 2049
+          SourceSecurityGroupId: !Ref GrupoSeguridadClientes
+      Tags:
+        - { Key: Name, Value: efs-sg }
+
+  # ---------------------------------------------------------------- EFS: sistema de archivos
+  SistemaArchivos:
+    Type: AWS::EFS::FileSystem
+    DeletionPolicy: Retain            # EFS no admite Snapshot: se conserva al borrar la pila
+    UpdateReplacePolicy: Retain
+    Properties:
+      Encrypted: true                 # no se puede cambiar despues
+      KmsKeyId: !GetAtt ClaveAlmacenamiento.Arn
+      PerformanceMode: generalPurpose
+      ThroughputMode: elastic
+      LifecyclePolicies:
+        - TransitionToIA: AFTER_30_DAYS
+        - TransitionToArchive: AFTER_90_DAYS
+        - TransitionToPrimaryStorageClass: AFTER_1_ACCESS
+      BackupPolicy:
+        Status: ENABLED
+      FileSystemPolicy:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: LecturaEscrituraClientes
+            Effect: Allow
+            Principal:
+              AWS: !Sub arn:aws:iam::${AWS::AccountId}:role/${RolClientes}
+            Action:
+              - elasticfilesystem:ClientMount
+              - elasticfilesystem:ClientWrite
+            Condition:
+              Bool:
+                elasticfilesystem:AccessedViaMountTarget: "true"
+          - Sid: ForzarRootSquash             # Deny explicito: LabRole concede ClientRootAccess por IAM
+            Effect: Deny
+            Principal:
+              AWS: "*"
+            Action: elasticfilesystem:ClientRootAccess
+          - Sid: ExigirTLS
+            Effect: Deny
+            Principal:
+              AWS: "*"
+            Action: "*"
+            Condition:
+              Bool:
+                aws:SecureTransport: "false"
+      FileSystemTags:
+        - { Key: Name, Value: ud3-efs-web }
+        - { Key: backup, Value: diario }
+
+  DestinoMontajeA:
+    Type: AWS::EFS::MountTarget
+    Properties:
+      FileSystemId: !Ref SistemaArchivos
+      SubnetId: !Ref SubredA
+      SecurityGroups: [!Ref GrupoSeguridadEfs]
+
+  DestinoMontajeB:
+    Type: AWS::EFS::MountTarget
+    Properties:
+      FileSystemId: !Ref SistemaArchivos
+      SubnetId: !Ref SubredB
+      SecurityGroups: [!Ref GrupoSeguridadEfs]
+
+  PuntoAccesoWeb:
+    Type: AWS::EFS::AccessPoint
+    Properties:
+      FileSystemId: !Ref SistemaArchivos
+      PosixUser:
+        Uid: "48"                     # usuario apache en Amazon Linux
+        Gid: "48"
+      RootDirectory:
+        Path: /web
+        CreationInfo:
+          OwnerUid: "48"
+          OwnerGid: "48"
+          Permissions: "0755"
+      AccessPointTags:
+        - { Key: Name, Value: ap-web }
+
+Outputs:
+  VolumenId:
+    Description: Volumen EBS cifrado
+    Value: !Ref VolumenDatos
+  SistemaArchivosId:
+    Description: Sistema de archivos EFS
+    Value: !Ref SistemaArchivos
+  PuntoAccesoId:
+    Description: Punto de acceso de la aplicacion web
+    Value: !Ref PuntoAccesoWeb
+  ComandoMontaje:
+    Description: Montaje desde una instancia cliente
+    Value: !Sub "sudo mount -t efs -o tls,iam,accesspoint=${PuntoAccesoWeb} ${SistemaArchivos}:/ /var/www/html/uploads"
+  ClaveArn:
+    Description: Clave KMS utilizada
+    Value: !GetAtt ClaveAlmacenamiento.Arn

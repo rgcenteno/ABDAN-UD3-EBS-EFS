@@ -1,0 +1,79 @@
+site_name: "Amazon EBS y Amazon EFS"
+
+theme:
+  name: material
+  locale: es
+
+  features:
+    - navigation.expand
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Cambiar a modo oscuro
+
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Cambiar a modo claro
+
+markdown_extensions:
+
+  - admonition
+  - attr_list
+  - md_in_html
+
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+
+  - pymdownx.superfences
+
+  - pymdownx.inlinehilite
+
+  - pymdownx.tabbed:
+      alternate_style: true
+
+  - toc:
+      permalink: true
+
+nav:
+  - Inicio: "index.md"
+
+  - Almacenamiento en AWS:
+      - Bloques, ficheros y objetos: "Almacenamiento-Introduccion.md"
+
+  - Amazon EBS:
+      - Visión general y capacidades: "EBS-01.md"
+      - Tipos de volúmenes: "EBS-02.md"
+      - Instantáneas: "EBS-03.md"
+      - "Ciclo de vida: crear, montar, modificar y eliminar": "EBS-05.md"
+
+  - Amazon EFS:
+      - Visión general, tipos y casos de uso: "EFS-01.md"
+      - "Arquitectura y red: destinos de montaje": "EFS-02.md"
+      - Clases de almacenamiento y ciclo de vida: "EFS-04.md"
+      - Creación de un sistema de archivos: "EFS-05.md"
+      - Políticas del sistema de archivos y permisos: "EFS-06.md"
+      - Montaje, puntos de acceso y modalidad de acceso: "EFS-07.md"
+      - Copias de seguridad y replicación: "EFS-08.md"
+
+  - Administración del almacenamiento:
+      - Cifrado e infraestructura como código: "ALM-IaC.md"
+      - Seguridad, monitorización y auditoría: "ALM-Supervision.md"
+      - Copias de seguridad y recuperación: "ALM-Recuperacion.md"
+
+  - Chuleta de comandos: "Chuleta.md"
+
+  - "Ampliación (opcional)":
+      - Selección del almacenamiento y costes: "ALM-Costes.md"
+      - Multi-Attach y reservas NVMe: "EBS-04.md"
+      - Rendimiento de EFS: "EFS-03.md"
+      - Cifrado e IaC (plantilla completa): "AMP-IaC.md"
+      - Monitorización y auditoría avanzadas: "AMP-Supervision.md"
+      - Copias de seguridad avanzadas: "AMP-Copias.md"
