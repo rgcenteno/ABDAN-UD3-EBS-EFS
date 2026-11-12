@@ -2,7 +2,7 @@
 
 Dentro de esta sección vamos a detallar las prácticas de la unidad didáctica 3 en la que trabajaremos administrando almacenamiento de bloques y ficheros. 
 
-## Consideraciones comunes a todas las prácticas de esta unidad
+## Consideraciones comunes a todas las prácticas
 
 ### La variable $username
 
