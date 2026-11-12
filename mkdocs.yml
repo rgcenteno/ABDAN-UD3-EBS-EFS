@@ -77,3 +77,8 @@ nav:
       - Cifrado e IaC (plantilla completa): "AMP-IaC.md"
       - Monitorización y auditoría avanzadas: "AMP-Supervision.md"
       - Copias de seguridad avanzadas: "AMP-Copias.md"
+  - "Prácticas":
+      - Consideraciones comunes: "Practicas-comun.md"
+      - Práctica 1: "Practica1.md"
+      - Práctica 2: "Practica2.Ampliacion-EBS.md"
+      - "[EVALUABLE] Práctica 3": "Practica3-EFS.md"
