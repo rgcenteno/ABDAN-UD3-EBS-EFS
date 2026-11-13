@@ -198,9 +198,9 @@ Con esta configuración, las tres máquinas tendrán acceso.
 - Tipo de sistema de archivos: `Regional`
 - Deshabilita las copias de seguridad automáticas para evitar cargos adicionales
 - Administración del ciclo de vida:
-    - Transición a IA (*Infrequent Access*): `60 días desde el último acceso`
-    - Transición a archivo (*Archive*): `180 días desde el último acceso`
-    - Transición a estándar (*Standard*): `En el primer acceso`
+  - Transición a IA (*Infrequent Access*): `60 días desde el último acceso`
+  - Transición a archivo (*Archive*): `180 días desde el último acceso`
+  - Transición a estándar (*Standard*): `En el primer acceso`
 
 Resto de parámetros por defecto
 
@@ -614,9 +614,14 @@ Implementaciones a realizar:
 
 ## Formato entrega
 
+!!! info
+
+    - En todas las capturas debe verse la parte superior derecha de la pantalla donde se ve el id de cuenta y el usuario.
+    - En la nomenclatura de archivos .ext significa la extensión del fichero (.jpg, .png). Por ejemplo `01-listado-SG.ext` podría ser `01-listado-SG.jpg` o `01-listado-SG.png`
+
 Fichero zip con nombre `practicaUd3-$username.zip`. Contenido:
 
-- Carpeta `capturas`: Con las capturas del paso 6
+- Carpeta `capturas`: Con las capturas de la Fase 6
 
 - Fichero políticas-efs-documentos.json con el contenido de las políticas del servidor EFS-Documentos-$username.
 
@@ -624,16 +629,16 @@ Fichero zip con nombre `practicaUd3-$username.zip`. Contenido:
 
 - Carpeta SG. Con las siguientes capturas de los siguientes Security Groups:
 
-  - Captura de listado completo de reglas seguridad. Nombre del fichero: `listado-SG.ext`
+  - Captura de listado completo de reglas seguridad. Nombre del fichero: `01-listado-SG.ext`
 
-  - Captura de las reglas de entrada de `SG-EC2-App`. Nombre de fichero: `SG-EC2-App.ext`
+  - Captura de las reglas de entrada de `SG-EC2-App`. Nombre de fichero: `SG-02-EC2-App.ext`
 
-  - Captura de las reglas de entrada de `SG-EC2-Backup`. Nombre de fichero: `SG-EC2-Backup.ext`
+  - Captura de las reglas de entrada de `SG-EC2-Backup`. Nombre de fichero: `03-SG-EC2-Backup.ext`
 
-  - Captura de las reglas de entrada de `SG-EFS-Backup`. Nombre de fichero: `SG-EFS-Backup.ext`
+  - Captura de las reglas de entrada de `SG-EFS-Backup`. Nombre de fichero: `04-SG-EFS-Backup.ext`
 
-  - Captura de las reglas de entrada de `SG-EFS-Documentos`. Nombre de fichero: `SG-EFS-Documentos.ext`
+  - Captura de las reglas de entrada de `SG-EFS-Documentos`. Nombre de fichero: `05-SG-EFS-Documentos.ext`
 
-- Fichero `respuestaQ1.txt`
+- Fichero `06-respuestaQ1.txt`
 
 > Una vez realizada la entrega, no te olvides de eliminar los recursos que has creado en el laboratorio para evitar costes innecesarios en la cuenta.
