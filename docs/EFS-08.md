@@ -107,7 +107,7 @@ En el diagrama, un sistema de archivos productivo en **Irlanda** (`eu-west-1`) s
     aws efs describe-replication-configurations --file-system-id fs-0abc123
     ```
 
-Si la región de origen sufre una incidencia, se **elimina la configuración de replicación**: el sistema de destino pasa a admitir escritura y se convierte en el nuevo principal (*failover*). Resuelta la incidencia, se replica en sentido inverso para volver a la región original (*failback*). El procedimiento completo está en la [ampliación de copias de seguridad](AMP-Copias.md).
+Si la región de origen sufre una incidencia, se **elimina la configuración de replicación**: el sistema de destino pasa a admitir escritura y se convierte en el nuevo principal (*failover*). Resuelta la incidencia, se replica en sentido inverso para volver a la región original (*failback*). El procedimiento completo está en el apartado «Para saber más» de [Copias de seguridad y recuperación](ALM-Recuperacion.md#para-saber-mas).
 
 ---
 

@@ -126,7 +126,7 @@ Añade una sentencia que **deniega** cualquier acceso que no utilice TLS (`aws:S
 La política siguiente concede a las instancias que usan el rol `LabRole` (el rol del perfil de instancia `LabInstanceProfile` del Learner Lab) permiso para montar y escribir **a través de los destinos de montaje**, **deniega** el acceso *root* y **deniega** cualquier conexión sin TLS.
 
 !!! tip "¿Qué ARN se pone en `Principal`?"
-    Desde la instancia, `aws sts get-caller-identity` devuelve un ARN **temporal** de STS (`arn:aws:sts::<cuenta>:assumed-role/LabRole/i-...`). En la política hay que usar el ARN **permanente del rol**: `arn:aws:iam::<cuenta>:role/LabRole`. El motivo se explica en el anexo [ARN temporal de STS frente al ARN del rol IAM](https://rgcenteno.github.io/ABDAN-PracticasUD3/anexo-sts-role/) de las prácticas.
+    Desde la instancia, `aws sts get-caller-identity` devuelve un ARN **temporal** de STS (`arn:aws:sts::<cuenta>:assumed-role/LabRole/i-...`). En la política hay que usar el ARN **permanente del rol**: `arn:aws:iam::<cuenta>:role/LabRole`. El motivo se explica en el anexo [ARN temporal de STS frente al ARN del rol IAM](anexo-sts-role.md).
 
 ```json
 {

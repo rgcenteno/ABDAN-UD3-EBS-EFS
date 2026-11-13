@@ -80,9 +80,9 @@ Al finalizar la práctica deberás ser capaz de:
 
 ## Fase 0: Crear LabVPC
 
-Utiliza el script que existe en la página [Introducción](../#script-que-crea-vpc-con-subred-publica-y-subred-privada) para crear una VPC con subredes pública y privada. Todas las máquinas EC2 y Sistemas EFS se montarán en esta VPC.
+Utiliza el script que existe en la página [Consideraciones comunes](Practicas-comun.md#script-que-crea-vpc-con-subred-publica-y-subred-privada) para crear una VPC con subredes pública y privada. Todas las máquinas EC2 y Sistemas EFS se montarán en esta VPC.
 
-Revisa también en la parte de Introducción que texto debes poner en vez de [$username](../#la-variable-username).
+Revisa también en [Consideraciones comunes](Practicas-comun.md#la-variable-username) qué texto debes poner en vez de `$username`.
 
 ## Fase 1: Crear las instancias EC2
 
@@ -248,7 +248,7 @@ Nos devolverá un resultado parecido a éste:
 }
 ```
 
-Ese ARN es un ARN temporal de STS. Si reiniciamos la consola o accedemos desde otro equipo, veremos que posiblemente el ARN haya variado. Revisa el documento "[ARN temporal de STS frente al ARN del rol IAM en EC2 y EFS](../anexo-sts-role)" para entender las implicaciones antes de seguir.
+Ese ARN es un ARN temporal de STS. Si reiniciamos la consola o accedemos desde otro equipo, veremos que posiblemente el ARN haya variado. Revisa el documento "[ARN temporal de STS frente al ARN del rol IAM en EC2 y EFS](anexo-sts-role.md)" para entender las implicaciones antes de seguir.
 
 El nombre de un ARN temporal de STS sigue el siguiente formato:
 
@@ -550,7 +550,7 @@ sudo touch /documentos/compartida/test-root-compartida.txt
 ls -l /documentos/compartida
 ```
 
-¿Qué usuario aparece como propietario del fichero `/documentos/compartida/test-root-compartida.txt`? Debería aparecer como `nobody`. [Explicación](#por-qu-podemos-actuar-como-root-no_root_squashing-pese-a-no-dar-el-permiso-en-el-recurso).
+¿Qué usuario aparece como propietario del fichero `/documentos/compartida/test-root-compartida.txt`? Debería aparecer como `nobody`. [Explicación](#por-que-podemos-actuar-como-root-no_root_squashing-pese-a-no-dar-el-permiso-en-el-recurso).
 
 ---
 

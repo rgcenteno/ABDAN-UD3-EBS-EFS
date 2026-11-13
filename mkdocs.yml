@@ -24,6 +24,7 @@ theme:
 markdown_extensions:
 
   - admonition
+  - pymdownx.details
   - attr_list
   - md_in_html
 
@@ -74,9 +75,6 @@ nav:
       - Selección del almacenamiento y costes: "ALM-Costes.md"
       - Multi-Attach y reservas NVMe: "EBS-04.md"
       - Rendimiento de EFS: "EFS-03.md"
-      - Cifrado e IaC (plantilla completa): "AMP-IaC.md"
-      - Monitorización y auditoría avanzadas: "AMP-Supervision.md"
-      - Copias de seguridad avanzadas: "AMP-Copias.md"
   - "Prácticas":
       - Consideraciones comunes: "Practicas-comun.md"
       - Práctica 1: "Practica1.md"
