@@ -1,0 +1,2028 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../EFS-05/">
+      
+      
+        <link rel="next" href="../EFS-07/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Políticas del sistema de archivos y permisos - Amazon EBS y Amazon EFS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#politicas-del-sistema-de-archivos-y-permisos" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Amazon EBS y Amazon EFS" class="md-header__button md-logo" aria-label="Amazon EBS y Amazon EFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Amazon EBS y Amazon EFS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Políticas del sistema de archivos y permisos
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Amazon EBS y Amazon EFS" class="md-nav__button md-logo" aria-label="Amazon EBS y Amazon EFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Amazon EBS y Amazon EFS
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Almacenamiento en AWS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Almacenamiento en AWS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Almacenamiento-Introduccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bloques, ficheros y objetos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Amazon EBS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Amazon EBS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EBS-01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visión general y capacidades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EBS-02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tipos de volúmenes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EBS-03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instantáneas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EBS-05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ciclo de vida: crear, montar, modificar y eliminar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Amazon EFS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Amazon EFS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visión general, tipos y casos de uso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitectura y red: destinos de montaje
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clases de almacenamiento y ciclo de vida
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Creación de un sistema de archivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Políticas del sistema de archivos y permisos
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Políticas del sistema de archivos y permisos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#la-politica-del-sistema-de-archivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La política del sistema de archivos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="La política del sistema de archivos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comportamiento-por-defecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comportamiento por defecto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acciones-de-cliente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acciones de cliente
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opciones-predefinidas-de-la-consola" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opciones predefinidas de la consola
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Opciones predefinidas de la consola">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#impedir-el-acceso-raiz-por-defecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Impedir el acceso raíz por defecto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aplicar-acceso-de-solo-lectura-por-defecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aplicar acceso de solo lectura por defecto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evitar-el-acceso-anonimo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evitar el acceso anónimo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aplicar-el-cifrado-en-transito-para-todos-los-clientes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aplicar el cifrado en tránsito para todos los clientes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejemplos-de-politicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplos de políticas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejemplos de políticas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lectura-y-escritura-para-un-rol-sin-root-y-con-tls-obligatorio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lectura y escritura para un rol, sin root y con TLS obligatorio
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aplicar-la-politica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aplicar la política
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#efs-ldap-y-permisos-de-usuario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EFS, LDAP y permisos de usuario
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recomendacion-para-un-entorno-corporativo-tipico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recomendación para un entorno corporativo típico
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referencias
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Montaje, puntos de acceso y modalidad de acceso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Copias de seguridad y replicación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Administración del almacenamiento
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Administración del almacenamiento
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ALM-IaC/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cifrado e infraestructura como código
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ALM-Supervision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Seguridad, monitorización y auditoría
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ALM-Recuperacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Copias de seguridad y recuperación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Chuleta/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chuleta de comandos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ampliación (opcional)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ampliación (opcional)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ALM-Costes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Selección del almacenamiento y costes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EBS-04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Attach y reservas NVMe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rendimiento de EFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prácticas
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Prácticas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Practicas-comun/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Consideraciones comunes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Practica1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Práctica 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Practica2.Ampliacion-EBS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Práctica 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Practica3-EFS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [EVALUABLE] Práctica 3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#la-politica-del-sistema-de-archivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La política del sistema de archivos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="La política del sistema de archivos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comportamiento-por-defecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comportamiento por defecto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acciones-de-cliente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acciones de cliente
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opciones-predefinidas-de-la-consola" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opciones predefinidas de la consola
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Opciones predefinidas de la consola">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#impedir-el-acceso-raiz-por-defecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Impedir el acceso raíz por defecto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aplicar-acceso-de-solo-lectura-por-defecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aplicar acceso de solo lectura por defecto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evitar-el-acceso-anonimo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evitar el acceso anónimo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aplicar-el-cifrado-en-transito-para-todos-los-clientes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aplicar el cifrado en tránsito para todos los clientes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejemplos-de-politicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplos de políticas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejemplos de políticas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lectura-y-escritura-para-un-rol-sin-root-y-con-tls-obligatorio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lectura y escritura para un rol, sin root y con TLS obligatorio
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aplicar-la-politica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aplicar la política
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#efs-ldap-y-permisos-de-usuario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EFS, LDAP y permisos de usuario
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recomendacion-para-un-entorno-corporativo-tipico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recomendación para un entorno corporativo típico
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referencias
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="politicas-del-sistema-de-archivos-y-permisos">Políticas del sistema de archivos y permisos<a class="headerlink" href="#politicas-del-sistema-de-archivos-y-permisos" title="Permanent link">&para;</a></h1>
+<p><img alt="image" src="../imgs/EFS-control-acceso.png" /></p>
+<div class="admonition tip">
+<p class="admonition-title">Vídeo de apoyo</p>
+<p>Este apartado se corresponde con el vídeo <a href="https://drive.google.com/file/d/1s_at6LPaKOKEYPhaKsetua0Fvll17oNM/view"><strong>Políticas de sistemas EFS</strong></a>, que muestra el último paso del asistente de creación.</p>
+</div>
+<p>El acceso a un sistema de archivos EFS se controla en <strong>cuatro capas independientes</strong>. Es el punto donde suele haber más confusión, porque se mezclan <strong>permisos de AWS</strong> (quién puede montar el sistema de archivos y cómo) con los <strong>permisos tradicionales de Linux</strong> (qué puede hacer cada usuario con cada fichero una vez montado).</p>
+<table>
+<thead>
+<tr>
+<th>Capa</th>
+<th>Pregunta que responde</th>
+<th>Mecanismo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1. Red</strong></td>
+<td>¿Puede el cliente llegar al sistema de archivos?</td>
+<td>Grupo de seguridad del destino de montaje (TCP 2049)</td>
+</tr>
+<tr>
+<td><strong>2. IAM</strong></td>
+<td>¿Puede montarlo? ¿Puede escribir? ¿Puede actuar como <em>root</em>? ¿Debe usar TLS?</td>
+<td><strong>Política del sistema de archivos</strong> y políticas de IAM</td>
+</tr>
+<tr>
+<td><strong>3. Punto de acceso</strong></td>
+<td>¿Con qué identidad y en qué directorio trabaja la aplicación?</td>
+<td><em>Access points</em> (apartado siguiente)</td>
+</tr>
+<tr>
+<td><strong>4. POSIX</strong></td>
+<td>¿Qué ficheros puede leer o modificar cada usuario?</td>
+<td>Propietario, grupo, <code>chown</code>, <code>chmod</code></td>
+</tr>
+</tbody>
+</table>
+<p>La capa de red se estudió en el apartado de arquitectura; este apartado se centra en las capas <strong>2</strong> y <strong>4</strong>.</p>
+<hr />
+<h2 id="la-politica-del-sistema-de-archivos">La política del sistema de archivos<a class="headerlink" href="#la-politica-del-sistema-de-archivos" title="Permanent link">&para;</a></h2>
+<p>La <strong>política del sistema de archivos</strong> (<em>file system policy</em>) es una <strong>política de IAM basada en recursos</strong> asociada al sistema de archivos, similar a la política de un <em>bucket</em> de S3. Controla <strong>quién puede montar y utilizar</strong> el sistema de archivos desde AWS, pero <strong>no sustituye a los permisos de Linux</strong>: una vez montado, la gestión de propietarios, grupos y permisos sigue haciéndose con permisos POSIX, igual que en cualquier sistema de ficheros Linux.</p>
+<h3 id="comportamiento-por-defecto">Comportamiento por defecto<a class="headerlink" href="#comportamiento-por-defecto" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Sin política, el acceso es completo</p>
+<p>Si no se define ninguna política, EFS aplica una <strong>política predeterminada</strong> que <strong>concede acceso completo (incluido <em>root</em>) a cualquier cliente anónimo que pueda conectarse a un destino de montaje</strong>. La única protección es entonces el grupo de seguridad. Es cómodo para un laboratorio, pero no es una configuración adecuada para producción.</p>
+</div>
+<h3 id="acciones-de-cliente">Acciones de cliente<a class="headerlink" href="#acciones-de-cliente" title="Permanent link">&para;</a></h3>
+<p>La política trabaja con tres acciones específicas para los clientes NFS:</p>
+<table>
+<thead>
+<tr>
+<th>Acción</th>
+<th>Permite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>elasticfilesystem:ClientMount</code></td>
+<td>Montar el sistema de archivos con acceso de <strong>solo lectura</strong></td>
+</tr>
+<tr>
+<td><code>elasticfilesystem:ClientWrite</code></td>
+<td><strong>Escribir</strong> en el sistema de archivos</td>
+</tr>
+<tr>
+<td><code>elasticfilesystem:ClientRootAccess</code></td>
+<td>Actuar como usuario <strong>root</strong> (UID 0) sobre el sistema de archivos</td>
+</tr>
+</tbody>
+</table>
+<p>Y con estas claves de condición, las únicas que EFS evalúa para los clientes NFS:</p>
+<table>
+<thead>
+<tr>
+<th>Clave de condición</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>aws:SecureTransport</code></td>
+<td>Exigir <strong>TLS</strong> (cifrado en tránsito)</td>
+</tr>
+<tr>
+<td><code>elasticfilesystem:AccessedViaMountTarget</code></td>
+<td>Permitir solo el acceso a través de los destinos de montaje</td>
+</tr>
+<tr>
+<td><code>elasticfilesystem:AccessPointArn</code></td>
+<td>Permitir el acceso solo a través de un <strong>punto de acceso</strong> concreto</td>
+</tr>
+<tr>
+<td><code>aws:SourceIp</code></td>
+<td>Restringir por IP de origen (solo rangos públicos)</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Basta con que lo permita una de las dos políticas</p>
+<p>Un permiso concedido <strong>en la política del sistema de archivos o en la política de IAM</strong> de la identidad es suficiente: no es necesario que figure en ambas. Solo un <strong><code>Deny</code> explícito</strong>, en cualquiera de ellas, lo anula.</p>
+<p>Esto es clave en el Learner Lab: la política de IAM de <strong><code>LabRole</code></strong> concede permisos amplios sobre EFS, <strong>incluido <code>ClientRootAccess</code></strong>. Por eso, aunque la política del sistema de archivos no conceda ese permiso, las instancias con <code>LabRole</code> siguen actuando como <em>root</em>. Para impedirlo hay que <strong>denegarlo explícitamente</strong> (ver más abajo).</p>
+</div>
+<hr />
+<h2 id="opciones-predefinidas-de-la-consola">Opciones predefinidas de la consola<a class="headerlink" href="#opciones-predefinidas-de-la-consola" title="Permanent link">&para;</a></h2>
+<p>En el paso <strong>Política del sistema de archivos</strong> del asistente (o en la pestaña del mismo nombre de un sistema existente), la consola ofrece cuatro casillas que generan la política automáticamente. El JSON resultante se muestra en el <strong>editor de políticas</strong>, donde puede ajustarse a mano.</p>
+<h3 id="impedir-el-acceso-raiz-por-defecto">Impedir el acceso raíz por defecto<a class="headerlink" href="#impedir-el-acceso-raiz-por-defecto" title="Permanent link">&para;</a></h3>
+<p>Elimina <code>ClientRootAccess</code> de las acciones que la política concede. Si el cliente no obtiene ese permiso por ninguna otra vía, cuando opera como <em>root</em> se le trata como un usuario <strong>sin privilegios</strong> (UID/GID <strong>65534</strong>, <code>nobody</code>): es lo que en NFS se conoce como <strong><em>root squashing</em></strong>. Hay que tener en cuenta que, <strong>sin política, EFS no aplica root squashing</strong> (<code>no_root_squash</code>): el <em>root</em> del cliente es <em>root</em> en el sistema de archivos.</p>
+<div class="admonition danger">
+<p class="admonition-title">Si el rol concede <code>ClientRootAccess</code>, la casilla no basta</p>
+<p>Quitar <code>ClientRootAccess</code> de la política del sistema de archivos <strong>no impide</strong> el acceso <em>root</em> a una identidad cuya política de IAM ya lo concede, como <code>LabRole</code> en el Learner Lab. En ese caso hay que añadir una sentencia <strong><code>Deny</code></strong> explícita:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">"Sid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ForzarRootSquash"</span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Deny"</span><span class="p">,</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">"Principal"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"AWS"</span><span class="p">:</span><span class="w"> </span><span class="s2">"*"</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="nt">"Action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"elasticfilesystem:ClientRootAccess"</span><span class="p">,</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="nt">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"arn:aws:elasticfilesystem:us-east-1:111122223333:file-system/fs-0abc123"</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Tras añadirla, hay que <strong>desmontar y volver a montar</strong>: los permisos se evalúan al conectar.</p>
+</div>
+<p>Durante años fue habitual permitir el acceso <em>root</em> en NFS para facilitar la administración, pero hoy la recomendación es la contraria. El motivo es sencillo: si una instancia EC2 resulta comprometida y un atacante obtiene privilegios de <em>root</em> en ella, podría acceder a <strong>cualquier fichero</strong> del sistema de archivos compartido, sea quien sea su propietario. Impidiendo el acceso <em>root</em>, los privilegios administrativos de una máquina cliente <strong>no se trasladan</strong> al almacenamiento compartido.</p>
+<p><strong>Recomendación: habilitarla</strong> en la mayoría de los entornos, en especial con requisitos de seguridad elevados. Solo debería desactivarse con una necesidad operativa justificada.</p>
+<div class="admonition warning">
+<p class="admonition-title">Preparar la estructura de directorios antes</p>
+<p>El directorio raíz de un EFS recién creado pertenece a <code>root:root</code> con permisos <code>755</code>. Si se impide el acceso <em>root</em> <strong>antes</strong> de crear los directorios de trabajo y asignar sus propietarios, nadie podrá hacerlo: el <em>root</em> de los clientes ya no es <em>root</em> para EFS. Las alternativas son crear la estructura <strong>antes</strong> de aplicar el <code>Deny</code> (es lo que se hace en la práctica 3), conceder <code>ClientRootAccess</code> solo a una <strong>identidad de administración</strong>, o utilizar <strong>puntos de acceso</strong>, que crean el directorio con el propietario indicado.</p>
+</div>
+<h3 id="aplicar-acceso-de-solo-lectura-por-defecto">Aplicar acceso de solo lectura por defecto<a class="headerlink" href="#aplicar-acceso-de-solo-lectura-por-defecto" title="Permanent link">&para;</a></h3>
+<p>Elimina <code>ClientWrite</code> de las acciones permitidas: los clientes solo pueden <strong>leer</strong>. Igual que con el acceso <em>root</em>, si la política de IAM del rol concede <code>ClientWrite</code> (caso de <code>LabRole</code>), hace falta un <strong><code>Deny</code> explícito</strong> de <code>ClientWrite</code> para forzar la solo lectura.</p>
+<p>Es útil para repositorios de documentación, contenido estático o datos de referencia que no deban modificarse. En la mayoría de las implementaciones generales las aplicaciones necesitan escribir, por lo que normalmente <strong>permanece deshabilitada</strong>; lo habitual es conceder la escritura solo a determinadas identidades.</p>
+<h3 id="evitar-el-acceso-anonimo">Evitar el acceso anónimo<a class="headerlink" href="#evitar-el-acceso-anonimo" title="Permanent link">&para;</a></h3>
+<p>Elimina <code>ClientMount</code> de las acciones concedidas a cualquier cliente: ya <strong>no basta con llegar al destino de montaje</strong>. Solo pueden montar los clientes que se <strong>identifican con IAM</strong> (por ejemplo, con el rol del perfil de instancia) y tienen el permiso concedido en su política de IAM o en la política del sistema de archivos.</p>
+<p>Es una buena práctica de seguridad y se recomienda mantenerla <strong>habilitada</strong> para garantizar que todos los accesos están identificados (y quedan registrados en CloudTrail con la identidad del cliente).</p>
+<div class="admonition note">
+<p class="admonition-title">Identificarse con IAM al montar</p>
+<p>Para que EFS conozca la identidad IAM del cliente, este debe montar con el <strong>asistente de montaje</strong> y la opción <strong><code>iam</code></strong> (que exige también <code>tls</code>):</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sudo<span class="w"> </span>mount<span class="w"> </span>-t<span class="w"> </span>efs<span class="w"> </span>-o<span class="w"> </span>tls,iam<span class="w"> </span>fs-0abc...:/<span class="w"> </span>/mnt/efs
+</span></code></pre></div>
+<p>Sin la opción <code>iam</code>, el cliente se presenta como <strong>anónimo</strong>. Si la política no concede nada a los anónimos, el montaje falla con <em>access denied by server</em>.</p>
+</div>
+<h3 id="aplicar-el-cifrado-en-transito-para-todos-los-clientes">Aplicar el cifrado en tránsito para todos los clientes<a class="headerlink" href="#aplicar-el-cifrado-en-transito-para-todos-los-clientes" title="Permanent link">&para;</a></h3>
+<p>Añade una sentencia que <strong>deniega</strong> cualquier acceso que no utilice TLS (<code>aws:SecureTransport = false</code>). Obliga a que todas las conexiones usen cifrado durante la transmisión, de modo que la información no pueda interceptarse ni inspeccionarse en la red.</p>
+<p><strong>Recomendación: habilitarla</strong> en cualquier entorno de producción. Los clientes deberán montar con la opción <code>tls</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Casilla</th>
+<th>Efecto en la política</th>
+<th>Recomendación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Impedir el acceso raíz por defecto</td>
+<td>Retira <code>ClientRootAccess</code> (con <code>LabRole</code>, añadir además el <code>Deny</code>)</td>
+<td>✅ Habilitar</td>
+</tr>
+<tr>
+<td>Aplicar acceso de solo lectura por defecto</td>
+<td>Retira <code>ClientWrite</code></td>
+<td>Según el caso (normalmente no)</td>
+</tr>
+<tr>
+<td>Evitar el acceso anónimo</td>
+<td>Retira <code>ClientMount</code> a los clientes no identificados</td>
+<td>✅ Habilitar</td>
+</tr>
+<tr>
+<td>Aplicar cifrado en tránsito</td>
+<td>Deniega el acceso sin TLS</td>
+<td>✅ Habilitar</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="ejemplos-de-politicas">Ejemplos de políticas<a class="headerlink" href="#ejemplos-de-politicas" title="Permanent link">&para;</a></h2>
+<h3 id="lectura-y-escritura-para-un-rol-sin-root-y-con-tls-obligatorio">Lectura y escritura para un rol, sin <em>root</em> y con TLS obligatorio<a class="headerlink" href="#lectura-y-escritura-para-un-rol-sin-root-y-con-tls-obligatorio" title="Permanent link">&para;</a></h3>
+<p>La política siguiente concede a las instancias que usan el rol <code>LabRole</code> (el rol del perfil de instancia <code>LabInstanceProfile</code> del Learner Lab) permiso para montar y escribir <strong>a través de los destinos de montaje</strong>, <strong>deniega</strong> el acceso <em>root</em> y <strong>deniega</strong> cualquier conexión sin TLS.</p>
+<div class="admonition tip">
+<p class="admonition-title">¿Qué ARN se pone en <code>Principal</code>?</p>
+<p>Desde la instancia, <code>aws sts get-caller-identity</code> devuelve un ARN <strong>temporal</strong> de STS (<code>arn:aws:sts::&lt;cuenta&gt;:assumed-role/LabRole/i-...</code>). En la política hay que usar el ARN <strong>permanente del rol</strong>: <code>arn:aws:iam::&lt;cuenta&gt;:role/LabRole</code>. El motivo se explica en el anexo <a href="../anexo-sts-role/">ARN temporal de STS frente al ARN del rol IAM</a>.</p>
+</div>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">"Version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2012-10-17"</span><span class="p">,</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">"Statement"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">      </span><span class="nt">"Sid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LecturaEscrituraServidoresWeb"</span><span class="p">,</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">      </span><span class="nt">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span><span class="p">,</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">      </span><span class="nt">"Principal"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"AWS"</span><span class="p">:</span><span class="w"> </span><span class="s2">"arn:aws:iam::111122223333:role/LabRole"</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">      </span><span class="nt">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">        </span><span class="s2">"elasticfilesystem:ClientMount"</span><span class="p">,</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">        </span><span class="s2">"elasticfilesystem:ClientWrite"</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">      </span><span class="p">],</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">      </span><span class="nt">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"arn:aws:elasticfilesystem:us-east-1:111122223333:file-system/fs-0abc123"</span><span class="p">,</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">      </span><span class="nt">"Condition"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">        </span><span class="nt">"Bool"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"elasticfilesystem:AccessedViaMountTarget"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">      </span><span class="p">}</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">      </span><span class="nt">"Sid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ForzarRootSquash"</span><span class="p">,</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">      </span><span class="nt">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Deny"</span><span class="p">,</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">      </span><span class="nt">"Principal"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"AWS"</span><span class="p">:</span><span class="w"> </span><span class="s2">"*"</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">      </span><span class="nt">"Action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"elasticfilesystem:ClientRootAccess"</span><span class="p">,</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">      </span><span class="nt">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"arn:aws:elasticfilesystem:us-east-1:111122223333:file-system/fs-0abc123"</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="w">      </span><span class="nt">"Sid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ExigirTLS"</span><span class="p">,</span>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="w">      </span><span class="nt">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Deny"</span><span class="p">,</span>
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="w">      </span><span class="nt">"Principal"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"AWS"</span><span class="p">:</span><span class="w"> </span><span class="s2">"*"</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="w">      </span><span class="nt">"Action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"*"</span><span class="p">,</span>
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="w">      </span><span class="nt">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"arn:aws:elasticfilesystem:us-east-1:111122223333:file-system/fs-0abc123"</span><span class="p">,</span>
+</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="w">      </span><span class="nt">"Condition"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a><span class="w">        </span><span class="nt">"Bool"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"aws:SecureTransport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-2-32"><a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a><span class="w">      </span><span class="p">}</span>
+</span><span id="__span-2-33"><a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-2-34"><a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a><span class="w">  </span><span class="p">]</span>
+</span><span id="__span-2-35"><a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="aplicar-la-politica">Aplicar la política<a class="headerlink" href="#aplicar-la-politica" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Consola AWS</label><label for="__tabbed_1_2">AWS CLI</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<ol>
+<li><strong>EFS → Sistemas de archivos</strong>, seleccionar el sistema y abrir la pestaña <strong>Política del sistema de archivos</strong>.</li>
+<li>Pulsar <strong>Editar</strong>.</li>
+<li>Marcar las <strong>opciones predefinidas</strong> deseadas o pegar el JSON en el <strong>Editor de políticas</strong>. Al editar el JSON a mano, las casillas se desactivan hasta pulsar <strong>Borrar</strong>.</li>
+<li><strong>Guardar</strong>. La política vigente queda visible en la misma pestaña.</li>
+</ol>
+<p>Para volver a la política predeterminada (acceso completo anónimo) se elimina la política desde esa pestaña.</p>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>aws<span class="w"> </span>efs<span class="w"> </span>put-file-system-policy<span class="w"> </span>--file-system-id<span class="w"> </span>fs-0abc123<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span>--policy<span class="w"> </span>file://politica-efs.json
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>aws<span class="w"> </span>efs<span class="w"> </span>describe-file-system-policy<span class="w"> </span>--file-system-id<span class="w"> </span>fs-0abc123
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1"># Volver a la política predeterminada (acceso completo anónimo)</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>aws<span class="w"> </span>efs<span class="w"> </span>delete-file-system-policy<span class="w"> </span>--file-system-id<span class="w"> </span>fs-0abc123
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="efs-ldap-y-permisos-de-usuario">EFS, LDAP y permisos de usuario<a class="headerlink" href="#efs-ldap-y-permisos-de-usuario" title="Permanent link">&para;</a></h2>
+<p>Cuando se trabaja con <strong>LDAP, Active Directory, FreeIPA</strong> o cualquier otro directorio corporativo, es importante entender que <strong>Amazon EFS no almacena usuarios ni grupos</strong>. El sistema de archivos solo recibe los <strong>identificadores numéricos</strong> de usuario y grupo (<strong>UID</strong> y <strong>GID</strong>) que envían los clientes Linux en cada operación NFS.</p>
+<table>
+<thead>
+<tr>
+<th>Usuario</th>
+<th>UID</th>
+<th>Grupo</th>
+<th>GID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>juan</td>
+<td>1001</td>
+<td>desarrolladores</td>
+<td>2001</td>
+</tr>
+</tbody>
+</table>
+<p>Esto tiene una consecuencia práctica: si en una instancia <code>juan</code> tiene UID 1001 y en otra el UID 1001 corresponde a <code>maria</code>, <strong><code>maria</code> verá los ficheros de <code>juan</code> como propios</strong>. Si todas las instancias utilizan <strong>el mismo LDAP</strong>, comparten los mismos UID y GID y los permisos funcionan de forma <strong>coherente en cualquier servidor</strong>.</p>
+<p>La gestión de permisos se realiza exactamente igual que en cualquier sistema Linux:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>sudo<span class="w"> </span>mkdir<span class="w"> </span>/mnt/efs/proyecto
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>sudo<span class="w"> </span>chown<span class="w"> </span>juan:desarrolladores<span class="w"> </span>/mnt/efs/proyecto
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">770</span><span class="w"> </span>/mnt/efs/proyecto<span class="w">            </span><span class="c1"># propietario y grupo: todo; resto: nada</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1"># Directorio de un segundo grupo: setgid para que lo nuevo herede el grupo</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>sudo<span class="w"> </span>mkdir<span class="w"> </span>/mnt/efs/informes
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>sudo<span class="w"> </span>chgrp<span class="w"> </span>auditores<span class="w"> </span>/mnt/efs/informes
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">2750</span><span class="w"> </span>/mnt/efs/informes
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">ACL</p>
+<p>EFS aplica los <strong>permisos POSIX clásicos</strong> (propietario, grupo y otros, con los bits especiales <code>setuid</code>, <code>setgid</code> y <em>sticky</em>). Las ACL POSIX que se gestionan con <code>setfacl</code> <strong>no funcionan sobre montajes NFS v4</strong>, por lo que una gestión más granular se resuelve combinando <strong>grupos</strong> (incluidos los grupos secundarios del directorio corporativo) y <strong>puntos de acceso</strong>.</p>
+</div>
+<p>Los permisos se administran <strong>en el propio sistema de archivos y en el directorio corporativo</strong>, no en Amazon EFS: <strong>EFS proporciona el almacenamiento compartido; LDAP o Active Directory proporcionan la identidad</strong> de los usuarios. Cuando no hay directorio corporativo (por ejemplo, contenedores o funciones Lambda), los <strong>puntos de acceso</strong> permiten imponer una identidad fija.</p>
+<hr />
+<h2 id="recomendacion-para-un-entorno-corporativo-tipico">Recomendación para un entorno corporativo típico<a class="headerlink" href="#recomendacion-para-un-entorno-corporativo-tipico" title="Permanent link">&para;</a></h2>
+<p>Para un EFS compartido entre varias instancias Linux integradas con LDAP o Active Directory:</p>
+<ul>
+<li>✅ Impedir el acceso raíz (con un <code>Deny</code> explícito de <code>ClientRootAccess</code> si el rol lo concede).</li>
+<li>✅ Evitar el acceso anónimo y montar con <code>-o tls,iam</code>.</li>
+<li>✅ Exigir cifrado en tránsito.</li>
+<li>✅ Gestionar usuarios y grupos mediante LDAP o Active Directory.</li>
+<li>✅ Administrar permisos con propietarios, grupos y permisos POSIX.</li>
+<li>✅ Utilizar grupos de seguridad e IAM para controlar qué sistemas pueden montar el EFS.</li>
+</ul>
+<p>Con esta configuración se obtiene un equilibrio adecuado entre <strong>seguridad</strong>, <strong>administración centralizada de usuarios</strong> y <strong>protección frente al compromiso de un servidor individual</strong>.</p>
+<hr />
+<h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
+<ul>
+<li>AWS. <em>Using IAM to control access to file systems</em> — <a href="https://docs.aws.amazon.com/efs/latest/ug/iam-access-control-nfs-efs.html">Control de acceso con IAM</a></li>
+<li>AWS. <em>Creating file system policies</em> — <a href="https://docs.aws.amazon.com/efs/latest/ug/create-file-system-policy.html">Políticas del sistema de archivos</a></li>
+<li>AWS. <em>Resource-based policy examples for Amazon EFS</em> — <a href="https://docs.aws.amazon.com/efs/latest/ug/security_iam_resource-based-policy-examples.html">Ejemplos de políticas</a></li>
+<li>AWS. <em>Enable root squashing using IAM authorization for NFS clients</em> — <a href="https://docs.aws.amazon.com/efs/latest/ug/enable-root-squashing.html">Root squashing</a></li>
+<li>AWS. <em>Network File System (NFS) level users, groups, and permissions</em> — <a href="https://docs.aws.amazon.com/efs/latest/ug/accessing-fs-nfs-permissions.html">Permisos NFS</a></li>
+<li>AWS. <em>Blocking public access to EFS file systems</em> — <a href="https://docs.aws.amazon.com/efs/latest/ug/access-control-block-public-access.html">Bloqueo del acceso público</a></li>
+<li>Classmethod. <em>¿Se bloquea el acceso anónimo con una política que solo permite autenticación IAM?</em> — <a href="https://dev.classmethod.jp/articles/amazon-efs-iam-auth-deny-anonymous-access/">Prueba práctica</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.expand", "content.code.copy", "content.code.annotate", "content.tabs.link"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

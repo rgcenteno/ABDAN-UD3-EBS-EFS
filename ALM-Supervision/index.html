@@ -1,0 +1,1978 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../ALM-IaC/">
+      
+      
+        <link rel="next" href="../ALM-Recuperacion/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Seguridad, monitorización y auditoría - Amazon EBS y Amazon EFS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#seguridad-monitorizacion-y-auditoria" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Amazon EBS y Amazon EFS" class="md-header__button md-logo" aria-label="Amazon EBS y Amazon EFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Amazon EBS y Amazon EFS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Seguridad, monitorización y auditoría
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Amazon EBS y Amazon EFS" class="md-nav__button md-logo" aria-label="Amazon EBS y Amazon EFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Amazon EBS y Amazon EFS
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Almacenamiento en AWS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Almacenamiento en AWS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Almacenamiento-Introduccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bloques, ficheros y objetos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Amazon EBS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Amazon EBS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EBS-01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visión general y capacidades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EBS-02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tipos de volúmenes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EBS-03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instantáneas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EBS-05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ciclo de vida: crear, montar, modificar y eliminar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Amazon EFS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Amazon EFS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visión general, tipos y casos de uso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitectura y red: destinos de montaje
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clases de almacenamiento y ciclo de vida
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Creación de un sistema de archivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Políticas del sistema de archivos y permisos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Montaje, puntos de acceso y modalidad de acceso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Copias de seguridad y replicación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Administración del almacenamiento
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Administración del almacenamiento
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ALM-IaC/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cifrado e infraestructura como código
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Seguridad, monitorización y auditoría
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Seguridad, monitorización y auditoría
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#monitorizacion-con-cloudwatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monitorización con CloudWatch
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monitorización con CloudWatch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crear-una-alarma" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crear una alarma
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#auditoria-con-cloudtrail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auditoría con CloudTrail
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#para-saber-mas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Para saber más
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referencias
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ALM-Recuperacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Copias de seguridad y recuperación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Chuleta/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chuleta de comandos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ampliación (opcional)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ampliación (opcional)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ALM-Costes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Selección del almacenamiento y costes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EBS-04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Attach y reservas NVMe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rendimiento de EFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prácticas
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Prácticas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Practicas-comun/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Consideraciones comunes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Practica1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Práctica 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Practica2.Ampliacion-EBS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Práctica 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Practica3-EFS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [EVALUABLE] Práctica 3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#monitorizacion-con-cloudwatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monitorización con CloudWatch
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monitorización con CloudWatch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crear-una-alarma" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crear una alarma
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#auditoria-con-cloudtrail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auditoría con CloudTrail
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#para-saber-mas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Para saber más
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referencias
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="seguridad-monitorizacion-y-auditoria">Seguridad, monitorización y auditoría<a class="headerlink" href="#seguridad-monitorizacion-y-auditoria" title="Permanent link">&para;</a></h1>
+<p>Este apartado reúne, para EBS y EFS, los mecanismos que responden a los términos del criterio de evaluación: <strong>visibilidad, acceso, seguridad, monitorización, observabilidad y auditoría</strong>. La mayoría ya se han visto en los apartados anteriores; aquí se ordenan y se completan con CloudWatch y CloudTrail.</p>
+<table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Pregunta</th>
+<th>EBS</th>
+<th>EFS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Visibilidad</strong></td>
+<td>¿Quién puede alcanzar los datos?</td>
+<td>Solo la instancia a la que está adjuntado. Cuidado con las <strong>instantáneas públicas</strong></td>
+<td>Solo dentro de la VPC: subredes privadas y <strong>grupo de seguridad</strong> (TCP 2049)</td>
+</tr>
+<tr>
+<td><strong>Acceso</strong></td>
+<td>¿Quién administra y quién usa los datos?</td>
+<td>IAM (quién crea, adjunta o borra) y permisos POSIX</td>
+<td>IAM, <strong>política del sistema de archivos</strong>, puntos de acceso y POSIX</td>
+</tr>
+<tr>
+<td><strong>Seguridad</strong></td>
+<td>¿Están protegidos los datos?</td>
+<td>Cifrado por defecto</td>
+<td>Cifrado en reposo y TLS, <em>root squashing</em></td>
+</tr>
+<tr>
+<td><strong>Monitorización</strong></td>
+<td>¿Funciona bien ahora?</td>
+<td>Métricas y alarmas de <strong>CloudWatch</strong></td>
+<td>Métricas y alarmas de <strong>CloudWatch</strong></td>
+</tr>
+<tr>
+<td><strong>Auditoría</strong></td>
+<td>¿Quién hizo qué y cuándo?</td>
+<td><strong>CloudTrail</strong></td>
+<td><strong>CloudTrail</strong> (incluidas las conexiones de clientes)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="monitorizacion-con-cloudwatch">Monitorización con CloudWatch<a class="headerlink" href="#monitorizacion-con-cloudwatch" title="Permanent link">&para;</a></h2>
+<p>Las métricas se publican automáticamente cada minuto y sin coste. Las más útiles:</p>
+<table>
+<thead>
+<tr>
+<th>Servicio</th>
+<th>Métrica</th>
+<th>Qué indica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EBS</td>
+<td><code>VolumeReadOps</code>, <code>VolumeWriteOps</code></td>
+<td>Operaciones realizadas: permiten calcular las IOPS reales</td>
+</tr>
+<tr>
+<td>EBS</td>
+<td><code>VolumeQueueLength</code></td>
+<td>Peticiones en espera. Alta y sostenida: el volumen no da abasto</td>
+</tr>
+<tr>
+<td>EBS</td>
+<td><code>VolumeIOPSExceededCheck</code></td>
+<td>1 si la aplicación intenta superar las IOPS del volumen: está <strong>infradimensionado</strong></td>
+</tr>
+<tr>
+<td>EBS</td>
+<td><code>BurstBalance</code></td>
+<td>Créditos de ráfaga de <code>gp2</code>. Si llega a 0, el rendimiento cae: migrar a <code>gp3</code></td>
+</tr>
+<tr>
+<td>EFS</td>
+<td><code>StorageBytes</code> (por clase)</td>
+<td>Espacio ocupado en Standard, IA y Archive: control de costes y del ciclo de vida</td>
+</tr>
+<tr>
+<td>EFS</td>
+<td><code>ClientConnections</code></td>
+<td>Clientes conectados</td>
+</tr>
+<tr>
+<td>EFS</td>
+<td><code>MeteredIOBytes</code></td>
+<td>E/S facturable; en modo Elastic, relacionada directamente con el coste</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Espacio libre en un volumen EBS</p>
+<p>EBS no sabe cuánto espacio ocupa el sistema de ficheros. Para vigilar el <code>df</code> de una instancia hay que instalar el <strong>agente de CloudWatch</strong>.</p>
+</div>
+<h3 id="crear-una-alarma">Crear una alarma<a class="headerlink" href="#crear-una-alarma" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Consola AWS</label><label for="__tabbed_1_2">AWS CLI</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<ol>
+<li><strong>CloudWatch → Alarmas → Todas las alarmas → Crear alarma → Seleccionar métrica</strong>.</li>
+<li><strong>EBS → Métricas por volumen</strong>, buscar el ID del volumen y marcar <code>VolumeIOPSExceededCheck</code>. <strong>Seleccionar métrica</strong>.</li>
+<li><strong>Estadística</strong>: <em>Máximo</em>. <strong>Periodo</strong>: <em>1 minuto</em>. <strong>Condición</strong>: <em>Mayor o igual que</em> <code>1</code>.</li>
+<li><strong>Notificación</strong>: <em>En alarma</em> → un tema de SNS con un correo de destino.</li>
+<li><strong>Nombre</strong>: <code>ebs-datos-iops-excedidas</code> → <strong>Crear alarma</strong>.</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>aws<span class="w"> </span>cloudwatch<span class="w"> </span>put-metric-alarm<span class="w"> </span>--alarm-name<span class="w"> </span>ebs-datos-iops-excedidas<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span>--namespace<span class="w"> </span>AWS/EBS<span class="w"> </span>--metric-name<span class="w"> </span>VolumeIOPSExceededCheck<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span>--dimensions<span class="w"> </span><span class="nv">Name</span><span class="o">=</span>VolumeId,Value<span class="o">=</span>vol-0abc...<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span>--statistic<span class="w"> </span>Maximum<span class="w"> </span>--period<span class="w"> </span><span class="m">60</span><span class="w"> </span>--evaluation-periods<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span>--threshold<span class="w"> </span><span class="m">1</span><span class="w"> </span>--comparison-operator<span class="w"> </span>GreaterThanOrEqualToThreshold<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span>--alarm-actions<span class="w"> </span>arn:aws:sns:us-east-1:111122223333:alertas-almacenamiento
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<p>La pestaña <strong>Supervisión</strong> de cada volumen o sistema de archivos muestra sus gráficas sin salir de la consola del servicio.</p>
+<hr />
+<h2 id="auditoria-con-cloudtrail">Auditoría con CloudTrail<a class="headerlink" href="#auditoria-con-cloudtrail" title="Permanent link">&para;</a></h2>
+<p>CloudTrail registra <strong>todas las llamadas a la API</strong>: quién creó, adjuntó, modificó o borró un volumen, una instantánea o un sistema de archivos, y cuándo. En EFS, cuando los clientes montan con <code>-o tls,iam</code>, registra además cada conexión (<code>NewClientConnection</code>) con la identidad del cliente. Los intentos de montaje anónimo rechazados aparecen como <code>ANONYMOUS_PRINCIPAL</code> con <code>AccessDenied</code>.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Consola AWS</label><label for="__tabbed_2_2">AWS CLI</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<ol>
+<li><strong>CloudTrail → Historial de eventos</strong>.</li>
+<li>Filtro <strong>Nombre del evento</strong>: <code>DeleteVolume</code> (o <code>NewClientConnection</code>, <code>PutFileSystemPolicy</code>…).</li>
+<li>Cada fila muestra la hora, el usuario y el recurso; al abrirla se ve el registro completo.</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>aws<span class="w"> </span>cloudtrail<span class="w"> </span>lookup-events<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span>--lookup-attributes<span class="w"> </span><span class="nv">AttributeKey</span><span class="o">=</span>EventName,AttributeValue<span class="o">=</span>DeleteVolume<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span>--max-results<span class="w"> </span><span class="m">10</span><span class="w"> </span>--query<span class="w"> </span><span class="s2">"Events[].[EventTime,Username]"</span><span class="w"> </span>--output<span class="w"> </span>table
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="para-saber-mas">Para saber más<a class="headerlink" href="#para-saber-mas" title="Permanent link">&para;</a></h2>
+<p>Contenido <strong>opcional</strong> que amplía este apartado. No es necesario para las prácticas: despliega cada bloque si te interesa.</p>
+<details class="info">
+<summary>Visibilidad: instantáneas públicas y alcance de EFS</summary>
+<p><strong>EBS</strong></p>
+<p>Un volumen EBS <strong>no tiene dirección de red</strong>: solo es visible para la instancia a la que está adjuntado. El riesgo de exposición está en las <strong>instantáneas</strong>, que pueden compartirse con otras cuentas o <strong>hacerse públicas</strong>. Una instantánea pública permite a cualquier cuenta de AWS crear un volumen con <strong>todo el contenido del disco</strong>.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Consola AWS</label><label for="__tabbed_3_2">AWS CLI</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><strong>Bloquear el acceso público a las instantáneas</strong> (por región)</p>
+<ol>
+<li><strong>EC2 → Panel → Atributos de la cuenta → Protección y seguridad de datos</strong>.</li>
+<li>En <strong>Bloquear el acceso público a las instantáneas de EBS</strong>, pulsar <strong>Administrar</strong>.</li>
+<li>Marcar <strong>Bloquear el acceso público</strong> y elegir <strong>Bloquear todo el uso compartido público</strong>.</li>
+<li><strong>Actualizar</strong>.</li>
+</ol>
+<p><strong>Ver con quién está compartida una instantánea</strong></p>
+<ol>
+<li><strong>EC2 → Instantáneas</strong>, seleccionar la instantánea.</li>
+<li><strong>Acciones → Configuración de instantáneas → Modificar permisos</strong>: muestra si es <strong>Privada</strong> o <strong>Pública</strong> y las cuentas con las que se comparte. Desde aquí también se retiran cuentas.</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Bloquear a nivel de región que las instantáneas se compartan públicamente</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>aws<span class="w"> </span>ec2<span class="w"> </span>enable-snapshot-block-public-access<span class="w"> </span>--state<span class="w"> </span>block-all-sharing
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>aws<span class="w"> </span>ec2<span class="w"> </span>get-snapshot-block-public-access-state
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># Ver con quién está compartida una instantánea</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>aws<span class="w"> </span>ec2<span class="w"> </span>describe-snapshot-attribute<span class="w"> </span>--snapshot-id<span class="w"> </span>snap-0abc...<span class="w"> </span>--attribute<span class="w"> </span>createVolumePermission
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<p><strong>EFS</strong></p>
+<p>Un sistema de archivos EFS solo es visible <strong>dentro de la VPC</strong> a través de sus destinos de montaje. La visibilidad se controla con:</p>
+<ul>
+<li>Destinos de montaje en <strong>subredes privadas</strong>.</li>
+<li><strong>Grupo de seguridad</strong> con TCP 2049 solo desde los grupos de seguridad de los clientes.</li>
+<li><strong>Política del sistema de archivos</strong> que no conceda acceso a principales externos. EFS <strong>bloquea por defecto</strong> las políticas que concederían acceso público.</li>
+</ul>
+</details>
+<details class="info">
+<summary>Plano de control y plano de datos: permisos por etiquetas</summary>
+<p>Igual que en las bases de datos, conviene distinguir:</p>
+<ul>
+<li><strong>Plano de control</strong>: quién puede <strong>crear, modificar, adjuntar, copiar o eliminar</strong> volúmenes, instantáneas, sistemas de archivos o destinos de montaje. Lo gobierna <strong>IAM</strong>.</li>
+<li><strong>Plano de datos</strong>: quién puede <strong>leer y escribir los datos</strong>. En EBS, quien tenga acceso a la instancia; en EFS, la combinación de red, política del sistema de archivos, punto de acceso y permisos POSIX.</li>
+</ul>
+<p>Ejemplo de política de IAM que permite a un operador gestionar instantáneas pero <strong>no borrar volúmenes</strong>, y solo sobre recursos etiquetados con su proyecto. En la consola se crea en <strong>IAM → Políticas → Crear política → JSON</strong>; con la CLI, con <code>aws iam create-policy --policy-document file://politica.json</code>.</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">"Version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2012-10-17"</span><span class="p">,</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nt">"Statement"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">      </span><span class="nt">"Sid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GestionInstantaneasProyecto"</span><span class="p">,</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">      </span><span class="nt">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span><span class="p">,</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">      </span><span class="nt">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"ec2:CreateSnapshot"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ec2:CreateTags"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ec2:DescribeVolumes"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ec2:DescribeSnapshots"</span><span class="p">],</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">      </span><span class="nt">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"*"</span><span class="p">,</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">      </span><span class="nt">"Condition"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"StringEquals"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"aws:ResourceTag/proyecto"</span><span class="p">:</span><span class="w"> </span><span class="s2">"web"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">      </span><span class="nt">"Sid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SinBorradoDeVolumenes"</span><span class="p">,</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">      </span><span class="nt">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Deny"</span><span class="p">,</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">      </span><span class="nt">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"ec2:DeleteVolume"</span><span class="p">,</span><span class="w"> </span><span class="s2">"elasticfilesystem:DeleteFileSystem"</span><span class="p">],</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">      </span><span class="nt">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"*"</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">  </span><span class="p">]</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="p">}</span>
+</span></code></pre></div>
+</details>
+<details class="info">
+<summary>Medidas de seguridad por servicio</summary>
+<table>
+<thead>
+<tr>
+<th>Medida</th>
+<th>EBS</th>
+<th>EFS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cifrado en reposo</td>
+<td>Cifrado por defecto en la región</td>
+<td>Al crear el sistema de archivos</td>
+</tr>
+<tr>
+<td>Cifrado en tránsito</td>
+<td>Automático en volúmenes cifrados</td>
+<td><code>-o tls</code> y política con <code>aws:SecureTransport</code></td>
+</tr>
+<tr>
+<td>Privilegios mínimos en el cliente</td>
+<td>Permisos POSIX</td>
+<td><em>Root squashing</em>, puntos de acceso, POSIX</td>
+</tr>
+<tr>
+<td>Protección frente a borrado</td>
+<td><code>DeleteOnTermination=false</code>, Papelera de reciclaje para instantáneas</td>
+<td>Política de IAM que deniegue <code>DeleteFileSystem</code></td>
+</tr>
+<tr>
+<td>Protección frente a <em>ransomware</em></td>
+<td><strong>Bloqueo de instantáneas</strong></td>
+<td><strong>AWS Backup Vault Lock</strong> (copias inmutables)</td>
+</tr>
+</tbody>
+</table>
+</details>
+<details class="info">
+<summary>Todas las métricas de EBS y EFS</summary>
+<p>EBS publica métricas en el espacio de nombres <strong><code>AWS/EBS</code></strong>, con una resolución de <strong>1 minuto</strong> y sin coste, mientras el volumen está adjuntado:</p>
+<table>
+<thead>
+<tr>
+<th>Métrica</th>
+<th>Qué indica</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>VolumeReadOps</code> / <code>VolumeWriteOps</code></td>
+<td>Operaciones de lectura y escritura en el periodo</td>
+<td>Calcular las IOPS reales (dividiendo por los segundos del periodo)</td>
+</tr>
+<tr>
+<td><code>VolumeReadBytes</code> / <code>VolumeWriteBytes</code></td>
+<td>Bytes leídos y escritos</td>
+<td>Calcular el rendimiento real</td>
+</tr>
+<tr>
+<td><code>VolumeAvgIOPS</code> / <code>VolumeAvgThroughput</code></td>
+<td>IOPS y rendimiento medios del último minuto</td>
+<td>Comparar con lo aprovisionado</td>
+</tr>
+<tr>
+<td><code>VolumeAvgReadLatency</code> / <code>VolumeAvgWriteLatency</code></td>
+<td>Latencia media (ms)</td>
+<td>Detectar degradación del almacenamiento</td>
+</tr>
+<tr>
+<td><code>VolumeQueueLength</code></td>
+<td>Peticiones pendientes</td>
+<td>Una cola alta y sostenida indica que el volumen no da abasto</td>
+</tr>
+<tr>
+<td><code>VolumeIOPSExceededCheck</code></td>
+<td>1 si la aplicación intenta superar las IOPS aprovisionadas</td>
+<td><strong>Volumen infradimensionado</strong>: subir IOPS o cambiar de tipo</td>
+</tr>
+<tr>
+<td><code>VolumeThroughputExceededCheck</code></td>
+<td>1 si intenta superar el rendimiento aprovisionado</td>
+<td>Subir MiB/s</td>
+</tr>
+<tr>
+<td><code>VolumeStalledIOCheck</code></td>
+<td>1 si el volumen no completa E/S (instancias Nitro)</td>
+<td>Problema de disponibilidad del volumen</td>
+</tr>
+<tr>
+<td><code>VolumeIdleTime</code></td>
+<td>Segundos sin actividad</td>
+<td>Volúmenes sobredimensionados o sin uso</td>
+</tr>
+<tr>
+<td><code>BurstBalance</code></td>
+<td>% de créditos de ráfaga (<code>gp2</code>, <code>st1</code>, <code>sc1</code>)</td>
+<td>Si cae a 0, el rendimiento baja a la base: migrar a <code>gp3</code></td>
+</tr>
+</tbody>
+</table>
+<p>Además, cada volumen tiene <strong>comprobaciones de estado</strong> (<em>volume status checks</em>): <code>ok</code>, <code>warning</code>, <code>impaired</code> o <code>insufficient-data</code>.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Consola AWS</label><label for="__tabbed_4_2">AWS CLI</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><strong>EC2 → Volúmenes</strong>, seleccionar el volumen y abrir la pestaña <strong>Comprobaciones de estado</strong>. La columna <strong>Comprobaciones de estado</strong> de la lista también lo resume.</p>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>aws<span class="w"> </span>ec2<span class="w"> </span>describe-volume-status<span class="w"> </span>--volume-ids<span class="w"> </span>vol-0abc...
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Espacio libre: una métrica del sistema operativo</p>
+<p>EBS no sabe qué parte del volumen está ocupada: eso lo sabe el <strong>sistema de ficheros</strong>. Para vigilar el espacio libre (<code>df</code>) hay que instalar el <strong>agente de CloudWatch</strong> en la instancia, que publica métricas como <code>disk_used_percent</code> en el espacio de nombres <code>CWAgent</code>.</p>
+</div>
+<p><strong>Métricas de EFS</strong></p>
+<p>EFS publica en <strong><code>AWS/EFS</code></strong>, por sistema de archivos:</p>
+<table>
+<thead>
+<tr>
+<th>Métrica</th>
+<th>Qué indica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>StorageBytes</code> (dimensión <code>StorageClass</code>: <code>Total</code>, <code>Standard</code>, <code>IA</code>, <code>Archive</code>)</td>
+<td>Espacio ocupado en cada clase: base para el control de costes y para comprobar el ciclo de vida</td>
+</tr>
+<tr>
+<td><code>ClientConnections</code></td>
+<td>Número de clientes conectados</td>
+</tr>
+<tr>
+<td><code>DataReadIOBytes</code>, <code>DataWriteIOBytes</code>, <code>MetadataIOBytes</code>, <code>TotalIOBytes</code></td>
+<td>Volumen de E/S de datos y metadatos</td>
+</tr>
+<tr>
+<td><code>MeteredIOBytes</code></td>
+<td>E/S facturable; en modo Elastic, relacionada directamente con el coste</td>
+</tr>
+<tr>
+<td><code>PermittedThroughput</code></td>
+<td>Rendimiento máximo permitido en cada momento</td>
+</tr>
+<tr>
+<td><code>BurstCreditBalance</code></td>
+<td>Créditos de ráfaga (modo Bursting)</td>
+</tr>
+<tr>
+<td><code>PercentIOLimit</code></td>
+<td>Cercanía al límite de E/S (modo General Purpose)</td>
+</tr>
+<tr>
+<td><code>TimeSinceLastSync</code></td>
+<td>Retraso de la replicación (en el sistema de destino)</td>
+</tr>
+</tbody>
+</table>
+</details>
+<details class="info">
+<summary>Alarma de tamaño de un sistema EFS</summary>
+<p>En la consola se crea igual que la alarma de IOPS, eligiendo <strong>EFS → Métricas de almacenamiento</strong> (dimensiones <em>FileSystemId</em> y <em>StorageClass</em>), la métrica <code>StorageBytes</code> con <code>StorageClass = Total</code>, estadística <em>Promedio</em>, periodo <em>1 hora</em> y condición <strong>Mayor que</strong> <code>500000000000</code>. Con la CLI:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>aws<span class="w"> </span>cloudwatch<span class="w"> </span>put-metric-alarm<span class="w"> </span>--alarm-name<span class="w"> </span>efs-web-mas-de-500GB<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span>--namespace<span class="w"> </span>AWS/EFS<span class="w"> </span>--metric-name<span class="w"> </span>StorageBytes<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span>--dimensions<span class="w"> </span><span class="nv">Name</span><span class="o">=</span>FileSystemId,Value<span class="o">=</span>fs-0abc123<span class="w"> </span><span class="nv">Name</span><span class="o">=</span>StorageClass,Value<span class="o">=</span>Total<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span>--statistic<span class="w"> </span>Average<span class="w"> </span>--period<span class="w"> </span><span class="m">3600</span><span class="w"> </span>--evaluation-periods<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span>--threshold<span class="w"> </span><span class="m">500000000000</span><span class="w"> </span>--comparison-operator<span class="w"> </span>GreaterThanThreshold<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span>--alarm-actions<span class="w"> </span>arn:aws:sns:us-east-1:111122223333:alertas-almacenamiento
+</span></code></pre></div>
+</details>
+<details class="info">
+<summary>Observabilidad: cómo diagnosticar con las métricas</summary>
+<p>La monitorización dice <strong>que</strong> algo va mal; la observabilidad permite entender <strong>por qué</strong>. En almacenamiento consiste en <strong>correlacionar</strong> métricas:</p>
+<table>
+<thead>
+<tr>
+<th>Síntoma</th>
+<th>Correlación</th>
+<th>Diagnóstico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>La aplicación responde lento</td>
+<td><code>VolumeQueueLength</code> alta + <code>VolumeIOPSExceededCheck</code> = 1</td>
+<td>El volumen EBS está limitado por IOPS</td>
+</tr>
+<tr>
+<td>La aplicación responde lento</td>
+<td>Latencia alta pero IOPS por debajo de lo aprovisionado</td>
+<td>Límite de la <strong>instancia</strong> hacia EBS, o patrón de E/S ineficiente</td>
+</tr>
+<tr>
+<td>Lentitud repentina en <code>gp2</code></td>
+<td><code>BurstBalance</code> cae a 0</td>
+<td>Créditos agotados: migrar a <code>gp3</code></td>
+</tr>
+<tr>
+<td>Lentitud en EFS Bursting</td>
+<td><code>BurstCreditBalance</code> cae a 0</td>
+<td>Cambiar a Elastic</td>
+</tr>
+<tr>
+<td>Factura de EFS creciente</td>
+<td><code>StorageBytes</code> de <code>Standard</code> no baja</td>
+<td>El ciclo de vida no está configurado o los datos no son fríos</td>
+</tr>
+</tbody>
+</table>
+<p>Un <strong>panel de CloudWatch</strong> (<em>dashboard</em>) que reúna estas métricas junto a las de la instancia (CPU, red) y las de la aplicación es la herramienta habitual. <strong>Compute Optimizer</strong> analiza el historial de métricas de los volúmenes y recomienda ajustes.</p>
+</details>
+<details class="info">
+<summary>Cumplimiento: AWS Config y etiquetas</summary>
+<p><strong>AWS Config</strong></p>
+<p>AWS Config evalúa de forma continua si los recursos cumplen reglas. En la consola se añaden en <strong>AWS Config → Reglas → Agregar regla → Agregar regla administrada por AWS</strong>; con la CLI, con <code>aws configservice put-config-rule</code>. Reglas administradas útiles:</p>
+<table>
+<thead>
+<tr>
+<th>Regla</th>
+<th>Comprueba</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ec2-ebs-encryption-by-default</code></td>
+<td>Que el cifrado por defecto de EBS esté activo</td>
+</tr>
+<tr>
+<td><code>encrypted-volumes</code></td>
+<td>Que los volúmenes adjuntados estén cifrados</td>
+</tr>
+<tr>
+<td><code>ebs-snapshot-public-restorable-check</code></td>
+<td>Que no haya instantáneas públicas</td>
+</tr>
+<tr>
+<td><code>efs-encrypted-check</code></td>
+<td>Que los sistemas EFS estén cifrados</td>
+</tr>
+<tr>
+<td><code>ebs-in-backup-plan</code> / <code>efs-in-backup-plan</code></td>
+<td>Que los recursos estén incluidos en un plan de AWS Backup</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Etiquetas</strong></p>
+<p>Las etiquetas (<code>proyecto</code>, <code>entorno</code>, <code>propietario</code>, <code>backup</code>) no son solo organización: permiten <strong>asignar costes</strong>, <strong>seleccionar recursos</strong> en planes de copia y políticas de DLM, y <strong>restringir permisos</strong> de IAM por recurso, como en el ejemplo anterior.</p>
+</details>
+<hr />
+<h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
+<ul>
+<li>AWS. <em>Amazon CloudWatch metrics for Amazon EBS</em> — <a href="https://docs.aws.amazon.com/ebs/latest/userguide/using_cloudwatch_ebs.html">Métricas de EBS</a></li>
+<li>AWS. <em>Amazon CloudWatch metrics for Amazon EFS</em> — <a href="https://docs.aws.amazon.com/efs/latest/ug/efs-metrics.html">Métricas de EFS</a></li>
+<li>AWS. <em>Logging Amazon EFS API calls with AWS CloudTrail</em> — <a href="https://docs.aws.amazon.com/efs/latest/ug/logging-using-cloudtrail.html">CloudTrail y EFS</a></li>
+<li>AWS Storage Blog. <em>Understanding and monitoring latency for Amazon EBS volumes</em> — <a href="https://aws.amazon.com/blogs/storage/understanding-and-monitoring-latency-for-amazon-ebs-volumes-using-amazon-cloudwatch">Latencia de EBS</a></li>
+<li>AWS. <em>Block public access for Amazon EBS snapshots</em> — <a href="https://docs.aws.amazon.com/ebs/latest/userguide/block-public-access-snapshots.html">Bloqueo del acceso público</a></li>
+<li>AWS Config. <em>List of AWS Config managed rules</em> — <a href="https://docs.aws.amazon.com/config/latest/developerguide/managed-rules-by-aws-config.html">Reglas administradas</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.expand", "content.code.copy", "content.code.annotate", "content.tabs.link"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>
