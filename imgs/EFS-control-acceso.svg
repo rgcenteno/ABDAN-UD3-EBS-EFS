@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="600" viewBox="0 0 1400 600">
+<defs><marker id="m232F3E" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#232F3E"/></marker><marker id="mED7100" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ED7100"/></marker><marker id="m3F8624" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3F8624"/></marker><marker id="m3B48CC" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3B48CC"/></marker><marker id="mDD344C" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#DD344C"/></marker><marker id="m545B64" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#545B64"/></marker><marker id="m8C4FFF" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8C4FFF"/></marker><filter id="sh" x="-5%" y="-5%" width="110%" height="120%"><feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="#000" flood-opacity="0.10"/></filter></defs>
+<rect x="0" y="0" width="1400" height="600" fill="#FFFFFF"/>
+<text x="40" y="52" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="28" font-weight="700" fill="#232F3E" text-anchor="start">Control de acceso a un sistema de archivos EFS</text>
+<text x="40" y="84" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="16" font-weight="400" fill="#545B64" text-anchor="start">Cuatro capas independientes: una petición debe superarlas todas para llegar a los datos</text>
+<rect x="40" y="200" width="170" height="190" rx="6" fill="#FFFFFF" stroke="#232F3E" stroke-width="1.6" filter="url(#sh)"/>
+<text x="125" y="236" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="700" fill="#232F3E" text-anchor="middle">Cliente</text>
+<text x="125" y="268" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="400" fill="#545B64" text-anchor="middle">Instancia EC2</text>
+<text x="125" y="290" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="400" fill="#545B64" text-anchor="middle">perfil de instancia</text>
+<text x="125" y="312" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="400" fill="#545B64" text-anchor="middle">(rol IAM)</text>
+<text x="125" y="334" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="400" fill="#545B64" text-anchor="middle">amazon-efs-utils</text>
+<rect x="260" y="150" width="240" height="290" rx="6" fill="#FFFFFF" stroke="#ED7100" stroke-width="1.6" filter="url(#sh)"/>
+<path d="M260,156 a6,6 0 0 1 6,-6 h228 a6,6 0 0 1 6,6 v40 h-240 z" fill="#ED7100"/>
+<text x="380.0" y="179" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">1 · Red</text>
+<text x="380.0" y="222" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="600" fill="#ED7100" text-anchor="middle">Grupo de seguridad</text>
+<text x="380" y="262" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="400" fill="#232F3E" text-anchor="middle">del destino de montaje</text>
+<text x="380" y="288" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="400" fill="#232F3E" text-anchor="middle">Entrada TCP 2049</text>
+<text x="380" y="314" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="400" fill="#232F3E" text-anchor="middle">solo desde el SG</text>
+<text x="380" y="340" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="400" fill="#232F3E" text-anchor="middle">de los clientes</text>
+<rect x="280" y="386" width="200" height="38" rx="19" fill="#FFFFFF" stroke="#ED7100" stroke-width="1.2"/>
+<text x="380" y="411" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="600" fill="#ED7100" text-anchor="middle">¿Llega el tráfico?</text>
+<line x1="212" y1="295" x2="256" y2="295" stroke="#232F3E" stroke-width="2" marker-end="url(#m232F3E)"/>
+<rect x="530" y="150" width="240" height="290" rx="6" fill="#FFFFFF" stroke="#DD344C" stroke-width="1.6" filter="url(#sh)"/>
+<path d="M530,156 a6,6 0 0 1 6,-6 h228 a6,6 0 0 1 6,6 v40 h-240 z" fill="#DD344C"/>
+<text x="650.0" y="179" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">2 · IAM</text>
+<text x="650.0" y="222" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="600" fill="#DD344C" text-anchor="middle">Política del sistema</text>
+<text x="650" y="262" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="400" fill="#232F3E" text-anchor="middle">de archivos + IAM</text>
+<text x="650" y="288" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="400" fill="#232F3E" text-anchor="middle">ClientMount (leer)</text>
+<text x="650" y="314" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="400" fill="#232F3E" text-anchor="middle">ClientWrite (escribir)</text>
+<text x="650" y="340" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="400" fill="#232F3E" text-anchor="middle">ClientRootAccess · TLS</text>
+<rect x="550" y="386" width="200" height="38" rx="19" fill="#FFFFFF" stroke="#DD344C" stroke-width="1.2"/>
+<text x="650" y="411" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="600" fill="#DD344C" text-anchor="middle">¿Puede montar y qué?</text>
+<line x1="482" y1="295" x2="526" y2="295" stroke="#232F3E" stroke-width="2" marker-end="url(#m232F3E)"/>
+<rect x="800" y="150" width="240" height="290" rx="6" fill="#FFFFFF" stroke="#8C4FFF" stroke-width="1.6" filter="url(#sh)"/>
+<path d="M800,156 a6,6 0 0 1 6,-6 h228 a6,6 0 0 1 6,6 v40 h-240 z" fill="#8C4FFF"/>
+<text x="920.0" y="179" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">3 · Punto de acceso</text>
+<text x="920.0" y="222" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="600" fill="#8C4FFF" text-anchor="middle">Access point</text>
+<text x="920" y="262" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="400" fill="#232F3E" text-anchor="middle">Directorio raíz propio</text>
+<text x="920" y="288" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="400" fill="#232F3E" text-anchor="middle">Fuerza UID/GID</text>
+<text x="920" y="314" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="400" fill="#232F3E" text-anchor="middle">Crea el directorio</text>
+<text x="920" y="340" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="400" fill="#232F3E" text-anchor="middle">con permisos</text>
+<rect x="820" y="386" width="200" height="38" rx="19" fill="#FFFFFF" stroke="#8C4FFF" stroke-width="1.2"/>
+<text x="920" y="411" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="600" fill="#8C4FFF" text-anchor="middle">¿Con qué identidad?</text>
+<line x1="752" y1="295" x2="796" y2="295" stroke="#232F3E" stroke-width="2" marker-end="url(#m232F3E)"/>
+<rect x="1070" y="150" width="240" height="290" rx="6" fill="#FFFFFF" stroke="#3F8624" stroke-width="1.6" filter="url(#sh)"/>
+<path d="M1070,156 a6,6 0 0 1 6,-6 h228 a6,6 0 0 1 6,6 v40 h-240 z" fill="#3F8624"/>
+<text x="1190.0" y="179" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">4 · POSIX</text>
+<text x="1190.0" y="222" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="600" fill="#3F8624" text-anchor="middle">Permisos Linux</text>
+<text x="1190" y="262" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="400" fill="#232F3E" text-anchor="middle">Propietario y grupo</text>
+<text x="1190" y="288" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="400" fill="#232F3E" text-anchor="middle">chown / chmod</text>
+<text x="1190" y="314" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="400" fill="#232F3E" text-anchor="middle">Grupos secundarios</text>
+<text x="1190" y="340" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="400" fill="#232F3E" text-anchor="middle">UID/GID de LDAP</text>
+<rect x="1090" y="386" width="200" height="38" rx="19" fill="#FFFFFF" stroke="#3F8624" stroke-width="1.2"/>
+<text x="1190" y="411" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="600" fill="#3F8624" text-anchor="middle">¿Qué ficheros?</text>
+<line x1="1022" y1="295" x2="1066" y2="295" stroke="#232F3E" stroke-width="2" marker-end="url(#m232F3E)"/>
+<text x="700" y="490" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="500" fill="#232F3E" text-anchor="middle">Sin política del sistema de archivos, EFS concede acceso completo a cualquier cliente que alcance el destino de montaje (capa 1).</text>
+<text x="700" y="518" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="500" fill="#545B64" text-anchor="middle">Para que la capa 2 identifique al cliente por su rol IAM hay que montar con el asistente:  mount -t efs -o tls,iam fs-xxxx:/ /mnt/efs</text>
+<text x="700" y="556" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="400" fill="#545B64" text-anchor="middle">EFS no almacena usuarios: recibe los UID/GID numéricos del cliente. Un mismo LDAP en todas las instancias garantiza permisos coherentes.</text>
+</svg>

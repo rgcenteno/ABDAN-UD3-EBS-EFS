@@ -1,0 +1,49 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: UD3 - Volumen EBS y sistema de archivos EFS cifrados con la misma clave de KMS
+
+Parameters:
+  ZonaVolumen:
+    Type: AWS::EC2::AvailabilityZone::Name
+    Description: AZ del volumen EBS (la misma que la de la instancia)
+
+Resources:
+  ClaveAlmacenamiento:              # clave propia, con rotacion automatica
+    Type: AWS::KMS::Key
+    Properties:
+      Description: Clave para EBS y EFS de la UD3
+      EnableKeyRotation: true
+      KeyPolicy:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: !Sub arn:aws:iam::${AWS::AccountId}:root
+            Action: kms:*
+            Resource: "*"
+
+  VolumenDatos:                     # volumen EBS cifrado
+    Type: AWS::EC2::Volume
+    DeletionPolicy: Snapshot        # al borrar la pila deja una instantanea
+    Properties:
+      AvailabilityZone: !Ref ZonaVolumen
+      Size: 10
+      VolumeType: gp3
+      Encrypted: true
+      KmsKeyId: !GetAtt ClaveAlmacenamiento.Arn
+      Tags:
+        - { Key: Name, Value: ud3-datos }
+
+  SistemaArchivos:                  # EFS cifrado (no se puede cambiar despues)
+    Type: AWS::EFS::FileSystem
+    Properties:
+      Encrypted: true
+      KmsKeyId: !GetAtt ClaveAlmacenamiento.Arn
+      ThroughputMode: elastic
+      FileSystemTags:
+        - { Key: Name, Value: ud3-efs }
+
+Outputs:
+  VolumenId:
+    Value: !Ref VolumenDatos
+  SistemaArchivosId:
+    Value: !Ref SistemaArchivos

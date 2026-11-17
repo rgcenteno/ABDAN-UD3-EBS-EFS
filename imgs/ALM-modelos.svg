@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="580" viewBox="0 0 1400 580">
+<defs><marker id="m232F3E" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#232F3E"/></marker><marker id="mED7100" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ED7100"/></marker><marker id="m3F8624" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3F8624"/></marker><marker id="m3B48CC" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3B48CC"/></marker><marker id="mDD344C" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#DD344C"/></marker><marker id="m545B64" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#545B64"/></marker><marker id="m8C4FFF" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8C4FFF"/></marker><filter id="sh" x="-5%" y="-5%" width="110%" height="120%"><feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="#000" flood-opacity="0.10"/></filter></defs>
+<rect x="0" y="0" width="1400" height="580" fill="#FFFFFF"/>
+<text x="40" y="52" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="28" font-weight="700" fill="#232F3E" text-anchor="start">Tres modelos de almacenamiento en AWS</text>
+<text x="40" y="84" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="16" font-weight="400" fill="#545B64" text-anchor="start">La forma de acceder a los datos determina el servicio: bloques, ficheros u objetos</text>
+<rect x="40" y="120" width="420" height="410" rx="6" fill="#FFFFFF" stroke="#ED7100" stroke-width="1.6" filter="url(#sh)"/>
+<path d="M40,126 a6,6 0 0 1 6,-6 h408 a6,6 0 0 1 6,6 v40 h-420 z" fill="#ED7100"/>
+<text x="250.0" y="149" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">Bloques · Amazon EBS</text>
+<text x="250.0" y="192" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="600" fill="#ED7100" text-anchor="middle">Un disco para una máquina</text>
+<text x="64" y="230" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="400" fill="#232F3E" text-anchor="start">• Dispositivo /dev/nvme1n1</text>
+<text x="64" y="266" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="400" fill="#232F3E" text-anchor="start">• Se formatea (xfs, ext4) y se monta</text>
+<text x="64" y="302" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="400" fill="#232F3E" text-anchor="start">• Una instancia (Multi-Attach: io1/io2)</text>
+<text x="64" y="338" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="400" fill="#232F3E" text-anchor="start">• Reside en UNA zona de disponibilidad</text>
+<text x="64" y="374" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="400" fill="#232F3E" text-anchor="start">• Capacidad aprovisionada (se paga lo reservado)</text>
+<text x="64" y="410" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="400" fill="#232F3E" text-anchor="start">• Copias: instantáneas incrementales</text>
+<rect x="60" y="446" width="380" height="64" rx="4" fill="#FFFFFF" stroke="#ED7100" stroke-width="1.2"/>
+<text x="250" y="472" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="700" fill="#ED7100" text-anchor="middle">Uso típico</text>
+<text x="250" y="496" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="500" fill="#232F3E" text-anchor="middle">SO, bases de datos, aplicaciones</text>
+<rect x="490" y="120" width="420" height="410" rx="6" fill="#FFFFFF" stroke="#3F8624" stroke-width="1.6" filter="url(#sh)"/>
+<path d="M490,126 a6,6 0 0 1 6,-6 h408 a6,6 0 0 1 6,6 v40 h-420 z" fill="#3F8624"/>
+<text x="700.0" y="149" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">Ficheros · Amazon EFS</text>
+<text x="700.0" y="192" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="600" fill="#3F8624" text-anchor="middle">Una carpeta compartida</text>
+<text x="514" y="230" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="400" fill="#232F3E" text-anchor="start">• Protocolo NFS v4.0 / v4.1 (TCP 2049)</text>
+<text x="514" y="266" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="400" fill="#232F3E" text-anchor="start">• Se monta: mount -t efs fs-xxxx:/ /mnt/efs</text>
+<text x="514" y="302" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="400" fill="#232F3E" text-anchor="start">• Miles de instancias a la vez, varias AZ</text>
+<text x="514" y="338" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="400" fill="#232F3E" text-anchor="start">• Regional (varias AZ) u One Zone</text>
+<text x="514" y="374" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="400" fill="#232F3E" text-anchor="start">• Capacidad elástica (se paga lo ocupado)</text>
+<text x="514" y="410" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="400" fill="#232F3E" text-anchor="start">• Copias: AWS Backup y replicación</text>
+<rect x="510" y="446" width="380" height="64" rx="4" fill="#FFFFFF" stroke="#3F8624" stroke-width="1.2"/>
+<text x="700" y="472" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="700" fill="#3F8624" text-anchor="middle">Uso típico</text>
+<text x="700" y="496" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="500" fill="#232F3E" text-anchor="middle">Web multi-servidor, home, contenedores</text>
+<rect x="940" y="120" width="420" height="410" rx="6" fill="#FFFFFF" stroke="#3B48CC" stroke-width="1.6" filter="url(#sh)"/>
+<path d="M940,126 a6,6 0 0 1 6,-6 h408 a6,6 0 0 1 6,6 v40 h-420 z" fill="#3B48CC"/>
+<text x="1150.0" y="149" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">Objetos · Amazon S3</text>
+<text x="1150.0" y="192" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="600" fill="#3B48CC" text-anchor="middle">Objetos accesibles por API</text>
+<text x="964" y="230" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="400" fill="#232F3E" text-anchor="start">• Petición HTTP(S): PUT / GET / DELETE</text>
+<text x="964" y="266" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="400" fill="#232F3E" text-anchor="start">• No se monta como un disco</text>
+<text x="964" y="302" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="400" fill="#232F3E" text-anchor="start">• Acceso desde cualquier lugar con permisos</text>
+<text x="964" y="338" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="400" fill="#232F3E" text-anchor="start">• Recurso regional (varias AZ)</text>
+<text x="964" y="374" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="400" fill="#232F3E" text-anchor="start">• Capacidad prácticamente ilimitada</text>
+<text x="964" y="410" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="400" fill="#232F3E" text-anchor="start">• Versionado y replicación entre regiones</text>
+<rect x="960" y="446" width="380" height="64" rx="4" fill="#FFFFFF" stroke="#3B48CC" stroke-width="1.2"/>
+<text x="1150" y="472" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="700" fill="#3B48CC" text-anchor="middle">Uso típico</text>
+<text x="1150" y="496" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="500" fill="#232F3E" text-anchor="middle">Copias, data lakes, web estática (UD2)</text>
+<text x="700" y="562" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="500" fill="#545B64" text-anchor="middle">Instance store: disco físico del servidor anfitrión, muy rápido pero EFÍMERO — se pierde al detener o terminar la instancia</text>
+</svg>

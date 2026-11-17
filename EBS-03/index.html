@@ -1,0 +1,1777 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../EBS-02/">
+      
+      
+        <link rel="next" href="../EBS-05/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Instantáneas - Amazon EBS y Amazon EFS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#instantaneas-de-ebs" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Amazon EBS y Amazon EFS" class="md-header__button md-logo" aria-label="Amazon EBS y Amazon EFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Amazon EBS y Amazon EFS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Instantáneas
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Amazon EBS y Amazon EFS" class="md-nav__button md-logo" aria-label="Amazon EBS y Amazon EFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Amazon EBS y Amazon EFS
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Almacenamiento en AWS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Almacenamiento en AWS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Almacenamiento-Introduccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bloques, ficheros y objetos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Amazon EBS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Amazon EBS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EBS-01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visión general y capacidades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EBS-02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tipos de volúmenes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instantáneas
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instantáneas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#casos-de-uso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Casos de uso
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#copias-incrementales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Copias incrementales
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Copias incrementales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#consistencia-de-la-instantanea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consistencia de la instantánea
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recurso-regional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recurso regional
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#funcionalidades-avanzadas-de-las-instantaneas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Funcionalidades avanzadas de las instantáneas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automatizacion-de-las-instantaneas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automatización de las instantáneas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referencias
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EBS-05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ciclo de vida: crear, montar, modificar y eliminar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Amazon EFS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Amazon EFS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visión general, tipos y casos de uso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitectura y red: destinos de montaje
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clases de almacenamiento y ciclo de vida
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Creación de un sistema de archivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Políticas del sistema de archivos y permisos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Montaje, puntos de acceso y modalidad de acceso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Copias de seguridad y replicación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Administración del almacenamiento
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Administración del almacenamiento
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ALM-IaC/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cifrado e infraestructura como código
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ALM-Supervision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Seguridad, monitorización y auditoría
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ALM-Recuperacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Copias de seguridad y recuperación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Chuleta/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chuleta de comandos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ampliación (opcional)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ampliación (opcional)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ALM-Costes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Selección del almacenamiento y costes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EBS-04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Attach y reservas NVMe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rendimiento de EFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prácticas
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Prácticas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Practicas-comun/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Consideraciones comunes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Practica1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Práctica 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Practica2.Ampliacion-EBS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Práctica 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Practica3-EFS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [EVALUABLE] Práctica 3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#casos-de-uso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Casos de uso
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#copias-incrementales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Copias incrementales
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Copias incrementales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#consistencia-de-la-instantanea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consistencia de la instantánea
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recurso-regional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recurso regional
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#funcionalidades-avanzadas-de-las-instantaneas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Funcionalidades avanzadas de las instantáneas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automatizacion-de-las-instantaneas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automatización de las instantáneas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referencias
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="instantaneas-de-ebs">Instantáneas de EBS<a class="headerlink" href="#instantaneas-de-ebs" title="Permanent link">&para;</a></h1>
+<p><img alt="image" src="../imgs/EBS-snapshots.jpg" /></p>
+<p>Las <strong>instantáneas</strong> (<em>snapshots</em>) son uno de los mecanismos más importantes de protección de datos en Amazon EBS. Una instantánea es una <strong>copia de seguridad de un volumen en un momento concreto</strong>: AWS captura el estado de sus bloques y permite reconstruir más adelante el volumen exactamente como se encontraba en ese instante.</p>
+<p>Sin instantáneas se tendría almacenamiento persistente, pero no una forma eficaz de recuperar la información ante errores o desastres.</p>
+<hr />
+<h2 id="casos-de-uso">Casos de uso<a class="headerlink" href="#casos-de-uso" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Caso de uso</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Recuperación de información</strong></td>
+<td>Ante un borrado accidental, una corrupción de datos o una actualización fallida, se restaura un estado anterior conocido</td>
+</tr>
+<tr>
+<td><strong>Clonación de entornos</strong></td>
+<td>A partir de una instantánea se crean volúmenes idénticos al original para pruebas, laboratorios o preproducción</td>
+</tr>
+<tr>
+<td><strong>Migración entre zonas de disponibilidad</strong></td>
+<td>Un volumen solo existe en una AZ; con una instantánea se crea un volumen nuevo en otra AZ de la región</td>
+</tr>
+<tr>
+<td><strong>Recuperación ante desastres</strong></td>
+<td>Instantáneas periódicas, copiadas a otra región, permiten reconstruir servidores y aplicaciones tras un incidente grave</td>
+</tr>
+<tr>
+<td><strong>Creación de AMI</strong></td>
+<td>Una AMI respaldada por EBS está formada por instantáneas de sus volúmenes</td>
+</tr>
+<tr>
+<td><strong>Cifrado de volúmenes existentes</strong></td>
+<td>Copiando una instantánea con cifrado se obtienen volúmenes cifrados a partir de uno sin cifrar</td>
+</tr>
+</tbody>
+</table>
+<p>El proceso general es sencillo: se parte de un <strong>volumen operativo</strong>, se crea una <strong>instantánea</strong> que almacena su estado y, cuando es necesario, se utiliza para generar <strong>uno o varios volúmenes nuevos</strong>.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Consola AWS</label><label for="__tabbed_1_2">AWS CLI</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><strong>Crear la instantánea</strong></p>
+<ol>
+<li><strong>EC2 → Elastic Block Store → Volúmenes</strong> y seleccionar el volumen.</li>
+<li><strong>Acciones → Crear instantánea</strong> (<em>Create snapshot</em>).</li>
+<li>Escribir una <strong>descripción</strong> («Datos web antes de actualizar») y añadir la etiqueta <code>Name = web-pre-update</code>.</li>
+<li>Pulsar <strong>Crear instantánea</strong>.</li>
+<li>En <strong>EC2 → Elastic Block Store → Instantáneas</strong>, esperar a que el <strong>estado de la instantánea</strong> pase de <em>Pendiente</em> a <strong>Completada</strong>. La columna <strong>Progreso</strong> muestra el avance.</li>
+</ol>
+<p><strong>Crear un volumen a partir de ella</strong></p>
+<ol>
+<li>En <strong>Instantáneas</strong>, seleccionar la instantánea.</li>
+<li><strong>Acciones → Crear volumen a partir de una instantánea</strong> (<em>Create volume from snapshot</em>).</li>
+<li>Elegir el <strong>tipo</strong> (<code>gp3</code>), el <strong>tamaño</strong> (igual o mayor que el original) y la <strong>zona de disponibilidad</strong> de destino (<code>us-east-1b</code>).</li>
+<li>Pulsar <strong>Crear volumen</strong>.</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Crear una instantánea con descripción y etiquetas</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>aws<span class="w"> </span>ec2<span class="w"> </span>create-snapshot<span class="w"> </span>--volume-id<span class="w"> </span>vol-0123456789abcdef0<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span>--description<span class="w"> </span><span class="s2">"Datos web antes de actualizar"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span>--tag-specifications<span class="w"> </span><span class="s1">'ResourceType=snapshot,Tags=[{Key=Name,Value=web-pre-update}]'</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1"># Esperar a que termine</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>aws<span class="w"> </span>ec2<span class="w"> </span><span class="nb">wait</span><span class="w"> </span>snapshot-completed<span class="w"> </span>--snapshot-ids<span class="w"> </span>snap-0abc...
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1"># Crear un volumen nuevo a partir de ella, en otra AZ</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>aws<span class="w"> </span>ec2<span class="w"> </span>create-volume<span class="w"> </span>--snapshot-id<span class="w"> </span>snap-0abc...<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">  </span>--availability-zone<span class="w"> </span>us-east-1b<span class="w"> </span>--volume-type<span class="w"> </span>gp3
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="copias-incrementales">Copias incrementales<a class="headerlink" href="#copias-incrementales" title="Permanent link">&para;</a></h2>
+<p><img alt="image" src="../imgs/EBS-incrementales.jpg" /></p>
+<p>Las instantáneas de EBS son <strong>incrementales</strong>:</p>
+<ol>
+<li>La <strong>primera</strong> instantánea copia todos los bloques <strong>que contienen datos</strong> (no los bloques vacíos).</li>
+<li>Las <strong>siguientes</strong> solo almacenan los bloques <strong>que han cambiado</strong> desde la instantánea anterior.</li>
+</ol>
+<p>En el ejemplo de la figura, la primera instantánea contiene los bloques A, B, C y D. Después se modifica únicamente el bloque C. La segunda instantánea no vuelve a almacenar A, B y D, porque siguen siendo idénticos: solo guarda la nueva versión C'.</p>
+<p><strong>¿Cómo se restaura una instantánea completa si solo contiene los cambios?</strong> AWS mantiene una estructura de <strong>referencias</strong> entre instantáneas. Aunque físicamente solo se almacenen los bloques modificados, <strong>cada instantánea es autosuficiente</strong> y puede utilizarse por sí sola para crear un volumen completo.</p>
+<p>Este diseño aporta tres ventajas:</p>
+<ul>
+<li>Reduce considerablemente el <strong>espacio</strong> consumido y, por tanto, el coste.</li>
+<li>Reduce el <strong>tiempo</strong> necesario para crear cada instantánea.</li>
+<li>Permite realizar copias <strong>frecuentes</strong> sin que el coste crezca en proporción al tamaño del volumen.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">¿Qué ocurre al borrar una instantánea?</p>
+<p>Al eliminar una instantánea, AWS solo borra los bloques que <strong>no</strong> son necesarios para ninguna otra. Se puede eliminar cualquier instantánea intermedia sin perder la capacidad de restaurar las demás. Por esa misma razón, borrar instantáneas antiguas no siempre libera tanto espacio como su tamaño aparente.</p>
+</div>
+<h3 id="consistencia-de-la-instantanea">Consistencia de la instantánea<a class="headerlink" href="#consistencia-de-la-instantanea" title="Permanent link">&para;</a></h3>
+<p>Una instantánea captura los bloques <strong>escritos en el volumen</strong> en el instante de su creación. Los datos que la aplicación o el sistema operativo tienen todavía en memoria <strong>no</strong> se incluyen. Para obtener una copia coherente:</p>
+<ul>
+<li>En un volumen de datos, se puede <strong>detener la escritura</strong> de la aplicación o <strong>desmontar</strong> el volumen durante el inicio de la instantánea.</li>
+<li>En bases de datos, se utilizan los mecanismos del motor (vaciado de tablas, modo de copia de seguridad) o, mejor, las copias del propio servicio gestionado.</li>
+<li>
+<p>Para instancias con <strong>varios volúmenes</strong>, se pueden crear instantáneas <strong>coherentes entre sí</strong> (<em>crash-consistent</em>) de todos los volúmenes en el mismo instante:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Consola AWS</label><label for="__tabbed_2_2">AWS CLI</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<ol>
+<li><strong>EC2 → Elastic Block Store → Instantáneas → Crear instantánea</strong>.</li>
+<li>En <strong>Tipo de recurso</strong>, elegir <strong>Instancia</strong> y seleccionar la instancia.</li>
+<li>Opcionalmente, <strong>excluir el volumen raíz</strong> y marcar <strong>Copiar etiquetas del volumen de origen</strong>.</li>
+<li><strong>Crear instantánea</strong>: se genera una instantánea por volumen, todas del mismo instante.</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>aws<span class="w"> </span>ec2<span class="w"> </span>create-snapshots<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span>--instance-specification<span class="w"> </span><span class="nv">InstanceId</span><span class="o">=</span>i-0123456789abcdef0<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span>--copy-tags-from-source<span class="w"> </span>volume
+</span></code></pre></div>
+</div>
+</div>
+</div>
+</li>
+</ul>
+<p>La instantánea comienza en un instante concreto y se completa de forma <strong>asíncrona</strong>: mientras su estado es <code>pending</code>, el volumen puede seguir utilizándose con normalidad.</p>
+<hr />
+<h2 id="recurso-regional">Recurso regional<a class="headerlink" href="#recurso-regional" title="Permanent link">&para;</a></h2>
+<p><img alt="image" src="../imgs/EBS-snapshot-regional.jpg" /></p>
+<p>Las instantáneas son <strong>recursos regionales</strong>: se almacenan de forma redundante en varias zonas de disponibilidad de la región (en un almacenamiento gestionado por AWS sobre Amazon S3, que no aparece entre los <em>buckets</em> del cliente) y <strong>solo están disponibles en la región en la que se crearon</strong>.</p>
+<p>Por ejemplo, una instantánea creada en Irlanda (<code>eu-west-1</code>) no aparece automáticamente en España (<code>eu-south-2</code>). Para usarla en otra región hay que realizar una <strong>copia explícita</strong>, que crea una instantánea <strong>nueva e independiente</strong> en el destino:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Consola AWS</label><label for="__tabbed_3_2">AWS CLI</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<ol>
+<li>En la región de <strong>origen</strong> (<code>eu-west-1</code>), ir a <strong>EC2 → Elastic Block Store → Instantáneas</strong> y seleccionar la instantánea.</li>
+<li><strong>Acciones → Copiar instantánea</strong> (<em>Copy snapshot</em>).</li>
+<li>Indicar una <strong>descripción</strong> y la <strong>Región de destino</strong> (<code>eu-south-2</code>).</li>
+<li>Marcar <strong>Cifrar esta instantánea</strong> y elegir la <strong>clave de KMS</strong> de la región de destino.</li>
+<li>Pulsar <strong>Copiar instantánea</strong>.</li>
+<li>Cambiar a la región de <strong>destino</strong> en el selector de regiones: la copia aparece en <strong>Instantáneas</strong> con estado <em>Pendiente</em> hasta completarse.</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Se ejecuta en la región de DESTINO</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>aws<span class="w"> </span>ec2<span class="w"> </span>copy-snapshot<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span>--region<span class="w"> </span>eu-south-2<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span>--source-region<span class="w"> </span>eu-west-1<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span>--source-snapshot-id<span class="w"> </span>snap-0abc...<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span>--description<span class="w"> </span><span class="s2">"Copia DR desde Irlanda"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">  </span>--encrypted<span class="w"> </span>--kms-key-id<span class="w"> </span>alias/clave-dr
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<p>Este comportamiento no es un inconveniente, sino una decisión de diseño:</p>
+<ul>
+<li><strong>Cumplimiento normativo</strong>: muchas organizaciones deben garantizar que ciertos datos permanecen en una ubicación geográfica concreta. Que las instantáneas no salgan de la región sin una acción explícita facilita ese control.</li>
+<li><strong>Recuperación ante desastres</strong>: copiar instantáneas a una segunda región, a cientos o miles de kilómetros, evita que un único incidente regional comprometa la continuidad del negocio.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Alta disponibilidad no es recuperación ante desastres</p>
+<p>La replicación interna de EBS protege frente a fallos <strong>dentro de una zona de disponibilidad</strong>. Las instantáneas regionales protegen frente a la pérdida de <strong>una zona</strong>. Solo las <strong>copias a otra región</strong> protegen frente a incidentes que afecten a <strong>toda la región</strong>. En arquitecturas empresariales es habitual definir una región principal para producción y una o varias secundarias donde se guardan copias para la continuidad operativa.</p>
+</div>
+<hr />
+<h2 id="funcionalidades-avanzadas-de-las-instantaneas">Funcionalidades avanzadas de las instantáneas<a class="headerlink" href="#funcionalidades-avanzadas-de-las-instantaneas" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Funcionalidad</th>
+<th>Para qué sirve</th>
+<th>Consideraciones</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Nivel de archivo</strong> (<em>EBS Snapshots Archive</em>)</td>
+<td>Guardar instantáneas que se conservan mucho tiempo y casi nunca se restauran (normativa, cierres anuales)</td>
+<td>Almacenamiento hasta un <strong>75 % más barato</strong>; permanencia mínima de <strong>90 días</strong>; restaurar tarda entre <strong>24 y 72 horas</strong> y tiene coste</td>
+</tr>
+<tr>
+<td><strong>Papelera de reciclaje</strong> (<em>Recycle Bin</em>)</td>
+<td>Recuperar instantáneas y AMI <strong>borradas por error</strong></td>
+<td>Se definen reglas de retención (por ejemplo, conservar 7 días lo borrado)</td>
+</tr>
+<tr>
+<td><strong>Bloqueo de instantáneas</strong> (<em>Snapshot Lock</em>)</td>
+<td>Impedir que nadie, ni siquiera un administrador, borre una instantánea durante un periodo</td>
+<td>Modo <em>governance</em> (los usuarios con permiso pueden desbloquear) o <em>compliance</em> (inmutable); protege frente a <em>ransomware</em></td>
+</tr>
+<tr>
+<td><strong>Restauración rápida</strong> (<em>Fast Snapshot Restore</em>)</td>
+<td>Que los volúmenes creados desde una instantánea ofrezcan <strong>todo su rendimiento desde el primer momento</strong></td>
+<td>Se activa por instantánea y AZ y tiene coste por hora</td>
+</tr>
+<tr>
+<td><strong>Compartir instantáneas</strong></td>
+<td>Usar una instantánea en otra cuenta de AWS</td>
+<td>Las cifradas con la clave <strong>administrada por AWS</strong> no se pueden compartir; hace falta una clave del cliente</td>
+</tr>
+<tr>
+<td><strong>Bloqueo del acceso público</strong></td>
+<td>Impedir a nivel de región que las instantáneas se compartan públicamente</td>
+<td>Muy recomendable: una instantánea pública expone todo el disco</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Inicialización de volúmenes restaurados</p>
+<p>Un volumen creado desde una instantánea está disponible de inmediato, pero sus bloques se descargan del almacenamiento de instantáneas <strong>la primera vez que se leen</strong>. Ese primer acceso tiene más latencia. Si se necesita el rendimiento completo desde el principio (por ejemplo, al restaurar una base de datos de producción), se activa <em>Fast Snapshot Restore</em> o se leen previamente todos los bloques con herramientas como <code>fio</code> o <code>dd</code>.</p>
+</div>
+<hr />
+<h2 id="automatizacion-de-las-instantaneas">Automatización de las instantáneas<a class="headerlink" href="#automatizacion-de-las-instantaneas" title="Permanent link">&para;</a></h2>
+<p>Crear instantáneas a mano no es una estrategia de copia de seguridad. En producción se programan con:</p>
+<ul>
+<li><strong>Amazon Data Lifecycle Manager (DLM)</strong>: políticas que seleccionan volúmenes o instancias <strong>por etiquetas</strong>, definen la <strong>frecuencia</strong> (por ejemplo, cada 12 horas), la <strong>retención</strong> (por número o por antigüedad), la <strong>copia a otra región</strong> y el paso al <strong>nivel de archivo</strong>.</li>
+<li><strong>AWS Backup</strong>: servicio centralizado que gestiona copias de EBS, EFS, RDS, DynamoDB y otros servicios con <strong>planes de copia</strong> comunes.</li>
+</ul>
+<p>Ambos se estudian en el apartado de <strong>copias de seguridad y recuperación</strong>. Como las instantáneas son incrementales, es habitual programarlas <strong>varias veces al día</strong> en entornos productivos: cuanto más frecuentes, menor es la cantidad de información que podría perderse entre el último respaldo y un fallo.</p>
+<hr />
+<h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
+<ul>
+<li>AWS. <em>Amazon EBS snapshots</em> — <a href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-snapshots.html">Instantáneas de EBS</a></li>
+<li>AWS. <em>How Amazon EBS snapshots work</em> — <a href="https://docs.aws.amazon.com/ebs/latest/userguide/how_snapshots_work.html">Funcionamiento incremental</a></li>
+<li>AWS. <em>Copy an Amazon EBS snapshot</em> — <a href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-copy-snapshot.html">Copia de instantáneas</a></li>
+<li>AWS. <em>Archive Amazon EBS snapshots</em> — <a href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshot-archive.html">Nivel de archivo</a></li>
+<li>AWS. <em>Recycle Bin</em> — <a href="https://docs.aws.amazon.com/ebs/latest/userguide/recycle-bin.html">Papelera de reciclaje</a></li>
+<li>AWS. <em>Lock Amazon EBS snapshots</em> — <a href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-snapshot-lock.html">Bloqueo de instantáneas</a></li>
+<li>AWS. <em>Amazon EBS fast snapshot restore</em> — <a href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-fast-snapshot-restore.html">Restauración rápida</a></li>
+<li>AWS. <em>Block public access for snapshots</em> — <a href="https://docs.aws.amazon.com/ebs/latest/userguide/block-public-access-snapshots.html">Bloqueo del acceso público</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.expand", "content.code.copy", "content.code.annotate", "content.tabs.link"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

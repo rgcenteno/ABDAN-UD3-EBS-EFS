@@ -1,0 +1,2100 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../EFS-04/">
+      
+      
+        <link rel="next" href="../EFS-06/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Creación de un sistema de archivos - Amazon EBS y Amazon EFS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#creacion-de-un-sistema-de-archivos-efs" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Amazon EBS y Amazon EFS" class="md-header__button md-logo" aria-label="Amazon EBS y Amazon EFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Amazon EBS y Amazon EFS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Creación de un sistema de archivos
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Amazon EBS y Amazon EFS" class="md-nav__button md-logo" aria-label="Amazon EBS y Amazon EFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Amazon EBS y Amazon EFS
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Almacenamiento en AWS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Almacenamiento en AWS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Almacenamiento-Introduccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bloques, ficheros y objetos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Amazon EBS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Amazon EBS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EBS-01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visión general y capacidades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EBS-02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tipos de volúmenes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EBS-03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instantáneas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EBS-05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ciclo de vida: crear, montar, modificar y eliminar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Amazon EFS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Amazon EFS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visión general, tipos y casos de uso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitectura y red: destinos de montaje
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clases de almacenamiento y ciclo de vida
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Creación de un sistema de archivos
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Creación de un sistema de archivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#paso-1-configuracion-del-sistema-de-archivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 1. Configuración del sistema de archivos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Paso 1. Configuración del sistema de archivos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nombre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nombre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tipo-de-sistema-de-archivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tipo de sistema de archivos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copias-de-seguridad-automaticas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Copias de seguridad automáticas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#administracion-del-ciclo-de-vida" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Administración del ciclo de vida
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cifrado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cifrado
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-del-rendimiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuración del rendimiento
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paso-2-acceso-a-la-red" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 2. Acceso a la red
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Paso 2. Acceso a la red">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vpc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VPC
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#destinos-de-montaje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Destinos de montaje
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paso-3-politica-del-sistema-de-archivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 3. Política del sistema de archivos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paso-4-revisar-y-crear" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 4. Revisar y crear
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-un-efs-estandar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen: un EFS «estándar»
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-del-procedimiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen del procedimiento
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modificaciones-posteriores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modificaciones posteriores
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eliminar-un-sistema-de-archivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Eliminar un sistema de archivos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referencias
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Políticas del sistema de archivos y permisos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Montaje, puntos de acceso y modalidad de acceso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Copias de seguridad y replicación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Administración del almacenamiento
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Administración del almacenamiento
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ALM-IaC/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cifrado e infraestructura como código
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ALM-Supervision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Seguridad, monitorización y auditoría
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ALM-Recuperacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Copias de seguridad y recuperación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Chuleta/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chuleta de comandos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ampliación (opcional)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ampliación (opcional)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ALM-Costes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Selección del almacenamiento y costes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EBS-04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Attach y reservas NVMe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EFS-03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rendimiento de EFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prácticas
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Prácticas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Practicas-comun/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Consideraciones comunes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Practica1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Práctica 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Practica2.Ampliacion-EBS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Práctica 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Practica3-EFS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [EVALUABLE] Práctica 3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#paso-1-configuracion-del-sistema-de-archivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 1. Configuración del sistema de archivos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Paso 1. Configuración del sistema de archivos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nombre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nombre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tipo-de-sistema-de-archivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tipo de sistema de archivos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copias-de-seguridad-automaticas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Copias de seguridad automáticas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#administracion-del-ciclo-de-vida" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Administración del ciclo de vida
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cifrado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cifrado
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-del-rendimiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuración del rendimiento
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paso-2-acceso-a-la-red" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 2. Acceso a la red
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Paso 2. Acceso a la red">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vpc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VPC
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#destinos-de-montaje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Destinos de montaje
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paso-3-politica-del-sistema-de-archivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 3. Política del sistema de archivos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paso-4-revisar-y-crear" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 4. Revisar y crear
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-un-efs-estandar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen: un EFS «estándar»
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-del-procedimiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen del procedimiento
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modificaciones-posteriores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modificaciones posteriores
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eliminar-un-sistema-de-archivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Eliminar un sistema de archivos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referencias
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="creacion-de-un-sistema-de-archivos-efs">Creación de un sistema de archivos EFS<a class="headerlink" href="#creacion-de-un-sistema-de-archivos-efs" title="Permanent link">&para;</a></h1>
+<p>La consola de EFS ofrece dos caminos: <strong>Creación rápida</strong>, que crea un sistema de archivos con los valores recomendados en la VPC elegida, y <strong>Personalizar</strong>, un asistente de cuatro pasos en el que se revisa cada opción. Este apartado recorre el asistente personalizado explicando cada opción y la recomendación más habitual para entornos generales.</p>
+<table>
+<thead>
+<tr>
+<th>Paso</th>
+<th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Configuración del sistema de archivos: nombre, tipo, copias, ciclo de vida, cifrado, rendimiento</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Acceso a la red: VPC, destinos de montaje, subredes y grupos de seguridad</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Política del sistema de archivos (opcional), que se estudia en el apartado siguiente</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Revisar y crear</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="paso-1-configuracion-del-sistema-de-archivos">Paso 1. Configuración del sistema de archivos<a class="headerlink" href="#paso-1-configuracion-del-sistema-de-archivos" title="Permanent link">&para;</a></h2>
+<h3 id="nombre">Nombre<a class="headerlink" href="#nombre" title="Permanent link">&para;</a></h3>
+<p>Es una <strong>etiqueta</strong> (<code>Name</code>) para identificar fácilmente el sistema de archivos. No afecta al funcionamiento ni al rendimiento. Se recomienda una nomenclatura clara y consistente, por ejemplo <code>efs-produccion</code>, <code>efs-desarrollo</code> o <code>efs-web-contenidos</code>.</p>
+<h3 id="tipo-de-sistema-de-archivos">Tipo de sistema de archivos<a class="headerlink" href="#tipo-de-sistema-de-archivos" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Opción</th>
+<th>Descripción</th>
+<th>Recomendación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Regional</strong></td>
+<td>Datos redundantes en varias AZ de la región; mayor disponibilidad y resiliencia</td>
+<td><strong>Producción</strong></td>
+</tr>
+<tr>
+<td><strong>Única zona</strong> (<em>One Zone</em>)</td>
+<td>Datos en una sola AZ, que se elige aquí; más económica, menos protección</td>
+<td>Desarrollo y pruebas</td>
+</tr>
+</tbody>
+</table>
+<p>Para la mayoría de los entornos de producción, la recomendación es <strong>Regional</strong>. <strong>No se puede cambiar después.</strong></p>
+<h3 id="copias-de-seguridad-automaticas">Copias de seguridad automáticas<a class="headerlink" href="#copias-de-seguridad-automaticas" title="Permanent link">&para;</a></h3>
+<p>Integra el sistema de archivos con <strong>AWS Backup</strong> mediante un plan predeterminado: <strong>una copia diaria con retención de 35 días</strong>. Salvo que exista una política de copias corporativa específica, se recomienda <strong>mantenerla activada</strong>, especialmente si el sistema almacena información importante. Puede desactivarse o sustituirse por un plan propio más adelante.</p>
+<h3 id="administracion-del-ciclo-de-vida">Administración del ciclo de vida<a class="headerlink" href="#administracion-del-ciclo-de-vida" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Opción</th>
+<th>Valor recomendado</th>
+<th>Comentario</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Transición a IA</strong></td>
+<td><strong>30 días</strong> desde el último acceso</td>
+<td>En entornos con poca actividad también se usan 60 o 90 días</td>
+</tr>
+<tr>
+<td><strong>Transición a Archive</strong></td>
+<td><strong>90 días</strong> desde el último acceso</td>
+<td>O <em>Ninguna</em> si se requiere acceso rápido a todos los datos</td>
+</tr>
+<tr>
+<td><strong>Transición a Standard</strong></td>
+<td><strong>Al primer acceso</strong></td>
+<td>Recupera el rendimiento de forma transparente cuando se vuelven a usar los datos</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cifrado">Cifrado<a class="headerlink" href="#cifrado" title="Permanent link">&para;</a></h3>
+<p>La opción <strong>Habilitar el cifrado de los datos en reposo</strong> protege los datos mediante AWS KMS. La recomendación general es <strong>habilitarlo siempre</strong>: mejora la seguridad, apenas tiene impacto operativo y <strong>no puede activarse después</strong>.</p>
+<p>Para la <strong>clave KMS</strong>, la administrada por AWS (<code>aws/elasticfilesystem</code>) es suficiente en la mayoría de los casos; una clave propia se usa cuando hay requisitos de cumplimiento o de control de accesos más estrictos.</p>
+<h3 id="configuracion-del-rendimiento">Configuración del rendimiento<a class="headerlink" href="#configuracion-del-rendimiento" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Opción</th>
+<th>Recomendación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Modo de rendimiento</strong> (<em>throughput</em>)</td>
+<td><strong>Elástico</strong>: se ajusta solo a la actividad y se paga lo que se lee y escribe</td>
+</tr>
+<tr>
+<td><strong>Modo de desempeño</strong> (<em>performance</em>)</td>
+<td><strong>Uso general</strong>: la menor latencia, válido en la práctica totalidad de los casos</td>
+</tr>
+</tbody>
+</table>
+<p>Los modos Aprovisionado, Ráfagas y E/S máxima se describen en la <a href="../EFS-03/">ampliación sobre rendimiento</a>.</p>
+<hr />
+<h2 id="paso-2-acceso-a-la-red">Paso 2. Acceso a la red<a class="headerlink" href="#paso-2-acceso-a-la-red" title="Permanent link">&para;</a></h2>
+<h3 id="vpc">VPC<a class="headerlink" href="#vpc" title="Permanent link">&para;</a></h3>
+<p>Se selecciona la VPC donde se crearán los destinos de montaje. Lo habitual es elegir <strong>la misma VPC</strong> en la que están las instancias EC2, los contenedores ECS o los servicios que van a usar EFS.</p>
+<h3 id="destinos-de-montaje">Destinos de montaje<a class="headerlink" href="#destinos-de-montaje" title="Permanent link">&para;</a></h3>
+<p>AWS recomienda crear un destino de montaje <strong>en cada zona de disponibilidad</strong> donde existan servidores que vayan a utilizar EFS. En entornos sencillos puede bastar con uno, pero en producción se despliega uno por cada AZ para mejorar la disponibilidad y reducir la latencia. El asistente propone uno por AZ y permite eliminar los que no se necesiten.</p>
+<p>Para cada destino de montaje se indica:</p>
+<table>
+<thead>
+<tr>
+<th>Opción</th>
+<th>Recomendación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Zona de disponibilidad</strong></td>
+<td>Las AZ en las que haya clientes</td>
+</tr>
+<tr>
+<td><strong>Subred</strong></td>
+<td>Una subred de esa AZ, preferiblemente <strong>privada</strong> cuando el acceso es desde servidores internos</td>
+</tr>
+<tr>
+<td><strong>Tipo de dirección IP</strong></td>
+<td><strong>IPv4</strong> salvo que la red ya trabaje con IPv6 (también IPv6 o doble pila)</td>
+</tr>
+<tr>
+<td><strong>Dirección IP</strong></td>
+<td>Automática, o una IP concreta de la subred</td>
+</tr>
+<tr>
+<td><strong>Grupos de seguridad</strong></td>
+<td>Un grupo específico que solo admita <strong>TCP 2049</strong> desde los grupos de seguridad de los clientes</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Grupos de seguridad</p>
+<p>Es uno de los aspectos más importantes. El asistente asigna por defecto el <strong>grupo de seguridad predeterminado de la VPC</strong>, que normalmente <strong>no</strong> admite tráfico desde las instancias. Se debe sustituir por un grupo propio (por ejemplo, <code>efs-sg</code>) que permita únicamente el acceso desde los grupos de seguridad de los servicios que realmente necesitan el sistema de archivos, evitando abrir el acceso a rangos amplios de direcciones IP.</p>
+</div>
+<hr />
+<h2 id="paso-3-politica-del-sistema-de-archivos">Paso 3. Política del sistema de archivos<a class="headerlink" href="#paso-3-politica-del-sistema-de-archivos" title="Permanent link">&para;</a></h2>
+<p>Paso opcional en el que se definen permisos a nivel de AWS: impedir el acceso <em>root</em>, forzar solo lectura, evitar el acceso anónimo y exigir cifrado en tránsito. Se estudia en el apartado de <strong>políticas del sistema de archivos y permisos</strong>.</p>
+<h2 id="paso-4-revisar-y-crear">Paso 4. Revisar y crear<a class="headerlink" href="#paso-4-revisar-y-crear" title="Permanent link">&para;</a></h2>
+<p>Se revisa el resumen y se pulsa <strong>Crear</strong>. El sistema de archivos pasa a estado <strong>Disponible</strong> en pocos segundos, pero los <strong>destinos de montaje</strong> tardan algo más (estado <em>Creando</em> → <em>Disponible</em>). Hasta que estén disponibles no se puede montar.</p>
+<hr />
+<h2 id="resumen-un-efs-estandar">Resumen: un EFS «estándar»<a class="headerlink" href="#resumen-un-efs-estandar" title="Permanent link">&para;</a></h2>
+<p>Para una aplicación corporativa habitual, una configuración segura, altamente disponible y escalable sería:</p>
+<ul>
+<li>✅ Sistema de archivos <strong>Regional</strong></li>
+<li>✅ Copias de seguridad automáticas <strong>activadas</strong></li>
+<li>✅ Transición a IA tras <strong>30 días</strong></li>
+<li>✅ Transición a Archive tras <strong>90 días</strong> (o desactivada si los datos se consultan con frecuencia)</li>
+<li>✅ Vuelta a Standard <strong>al primer acceso</strong></li>
+<li>✅ Cifrado en reposo <strong>activado</strong>, con la clave administrada por AWS (o propia si hay requisitos de cumplimiento)</li>
+<li>✅ Modo de rendimiento <strong>Elástico</strong> y modo de desempeño <strong>Uso general</strong></li>
+<li>✅ Destino de montaje en <strong>cada AZ</strong> utilizada, en <strong>subredes privadas</strong></li>
+<li>✅ Acceso restringido mediante <strong>grupos de seguridad específicos</strong></li>
+</ul>
+<hr />
+<h2 id="resumen-del-procedimiento">Resumen del procedimiento<a class="headerlink" href="#resumen-del-procedimiento" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Consola AWS</label><label for="__tabbed_1_2">AWS CLI</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<ol>
+<li><strong>EFS → Sistemas de archivos → Crear sistema de archivos → Personalizar</strong>.</li>
+<li><strong>Paso 1</strong>: nombre <code>efs-web-contenidos</code>, tipo <strong>Regional</strong>, copias automáticas activadas, ciclo de vida 30 / 90 / al primer acceso, cifrado activado, modo <strong>Elástico</strong> y <strong>Uso general</strong>, etiqueta <code>entorno = produccion</code>. <strong>Siguiente</strong>.</li>
+<li><strong>Paso 2</strong>: VPC de las instancias; un destino de montaje por AZ, en subredes privadas, con el grupo de seguridad <code>efs-sg</code>. <strong>Siguiente</strong>.</li>
+<li><strong>Paso 3</strong>: política del sistema de archivos (opcional). <strong>Siguiente</strong>.</li>
+<li><strong>Paso 4</strong>: revisar y <strong>Crear</strong>.</li>
+<li>Comprobar en la pestaña <strong>Red</strong> del sistema que los destinos de montaje pasan a <strong>Disponible</strong>.</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># 1. Sistema de archivos (Regional; para One Zone añadir --availability-zone-name us-east-1a)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>aws<span class="w"> </span>efs<span class="w"> </span>create-file-system<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span>--creation-token<span class="w"> </span>efs-web-contenidos<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span>--performance-mode<span class="w"> </span>generalPurpose<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span>--throughput-mode<span class="w"> </span>elastic<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span>--encrypted<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span>--backup<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span>--tags<span class="w"> </span><span class="nv">Key</span><span class="o">=</span>Name,Value<span class="o">=</span>efs-web-contenidos<span class="w"> </span><span class="nv">Key</span><span class="o">=</span>entorno,Value<span class="o">=</span>produccion
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>aws<span class="w"> </span>efs<span class="w"> </span>describe-file-systems<span class="w"> </span>--file-system-id<span class="w"> </span>fs-0abc...<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">  </span>--query<span class="w"> </span><span class="s2">"FileSystems[0].LifeCycleState"</span><span class="w">          </span><span class="c1"># esperar a "available"</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="c1"># 2. Política de ciclo de vida</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>aws<span class="w"> </span>efs<span class="w"> </span>put-lifecycle-configuration<span class="w"> </span>--file-system-id<span class="w"> </span>fs-0abc...<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">  </span>--lifecycle-policies<span class="w"> </span><span class="s1">'[{"TransitionToIA":"AFTER_30_DAYS"},{"TransitionToArchive":"AFTER_90_DAYS"},{"TransitionToPrimaryStorageClass":"AFTER_1_ACCESS"}]'</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="c1"># 3. Un destino de montaje por AZ</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>aws<span class="w"> </span>efs<span class="w"> </span>create-mount-target<span class="w"> </span>--file-system-id<span class="w"> </span>fs-0abc...<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">  </span>--subnet-id<span class="w"> </span>subnet-privada-a<span class="w"> </span>--security-groups<span class="w"> </span>sg-efs...
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>aws<span class="w"> </span>efs<span class="w"> </span>create-mount-target<span class="w"> </span>--file-system-id<span class="w"> </span>fs-0abc...<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">  </span>--subnet-id<span class="w"> </span>subnet-privada-b<span class="w"> </span>--security-groups<span class="w"> </span>sg-efs...
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>aws<span class="w"> </span>efs<span class="w"> </span>describe-mount-targets<span class="w"> </span>--file-system-id<span class="w"> </span>fs-0abc...<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">  </span>--query<span class="w"> </span><span class="s2">"MountTargets[].[AvailabilityZoneName,IpAddress,LifeCycleState]"</span><span class="w"> </span>--output<span class="w"> </span>table
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="modificaciones-posteriores">Modificaciones posteriores<a class="headerlink" href="#modificaciones-posteriores" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Parámetro</th>
+<th>¿Se puede cambiar?</th>
+<th>Consola AWS</th>
+<th>AWS CLI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nombre y etiquetas</td>
+<td>Sí</td>
+<td>Pestaña <strong>Etiquetas → Administrar etiquetas</strong></td>
+<td><code>aws efs tag-resource</code></td>
+</tr>
+<tr>
+<td>Tipo (Regional / One Zone)</td>
+<td><strong>No</strong></td>
+<td>Crear otro y copiar los datos (o restaurar una copia)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Cifrado en reposo y clave KMS</td>
+<td><strong>No</strong></td>
+<td>Crear otro cifrado y copiar los datos</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Modo de desempeño</td>
+<td><strong>No</strong></td>
+<td>Crear otro</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Modo de rendimiento (<em>throughput</em>)</td>
+<td>Sí (espera de 24 h tras aumentar el aprovisionado)</td>
+<td>Sección <strong>General → Editar</strong></td>
+<td><code>update-file-system</code></td>
+</tr>
+<tr>
+<td>Política de ciclo de vida</td>
+<td>Sí</td>
+<td>Sección <strong>General → Editar</strong></td>
+<td><code>put-lifecycle-configuration</code></td>
+</tr>
+<tr>
+<td>Copias automáticas</td>
+<td>Sí</td>
+<td>Sección <strong>General → Editar → Copias de seguridad automáticas</strong></td>
+<td><code>put-backup-policy</code> con <code>Status=ENABLED</code> o <code>Status=DISABLED</code></td>
+</tr>
+<tr>
+<td>Destinos de montaje</td>
+<td>Añadir o eliminar; cambiar sus grupos de seguridad</td>
+<td>Pestaña <strong>Red → Administrar</strong></td>
+<td><code>create-mount-target</code>, <code>delete-mount-target</code>, <code>modify-mount-target-security-groups</code></td>
+</tr>
+<tr>
+<td>Política del sistema de archivos</td>
+<td>Sí</td>
+<td>Pestaña <strong>Política del sistema de archivos → Editar</strong></td>
+<td><code>put-file-system-policy</code>, <code>delete-file-system-policy</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="eliminar-un-sistema-de-archivos">Eliminar un sistema de archivos<a class="headerlink" href="#eliminar-un-sistema-de-archivos" title="Permanent link">&para;</a></h2>
+<p>La eliminación es <strong>irreversible</strong> y destruye todos los datos. El orden es:</p>
+<ol>
+<li><strong>Desmontar</strong> el sistema de archivos en todos los clientes y retirar sus líneas de <code>/etc/fstab</code>.</li>
+<li>Si está configurada, <strong>eliminar la replicación</strong>.</li>
+<li><strong>Eliminar los destinos de montaje</strong> (y, si se desea, los puntos de acceso).</li>
+<li><strong>Eliminar el sistema de archivos</strong>.</li>
+</ol>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Consola AWS</label><label for="__tabbed_2_2">AWS CLI</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<ol>
+<li>Comprobar en la pestaña <strong>Replicación</strong> que no hay replicación configurada (si la hay, <strong>Eliminar replicación</strong>).</li>
+<li><strong>EFS → Sistemas de archivos</strong>, seleccionar el sistema y pulsar <strong>Eliminar</strong>.</li>
+<li>Escribir el <strong>ID del sistema de archivos</strong> para confirmar y pulsar <strong>Confirmar</strong>.</li>
+</ol>
+<p>La consola elimina también los <strong>destinos de montaje</strong> asociados antes de borrar el sistema de archivos.</p>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>aws<span class="w"> </span>efs<span class="w"> </span>describe-mount-targets<span class="w"> </span>--file-system-id<span class="w"> </span>fs-0abc...<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span>--query<span class="w"> </span><span class="s2">"MountTargets[].MountTargetId"</span><span class="w"> </span>--output<span class="w"> </span>text
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>aws<span class="w"> </span>efs<span class="w"> </span>delete-mount-target<span class="w"> </span>--mount-target-id<span class="w"> </span>fsmt-0aaa...
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>aws<span class="w"> </span>efs<span class="w"> </span>delete-mount-target<span class="w"> </span>--mount-target-id<span class="w"> </span>fsmt-0bbb...
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>aws<span class="w"> </span>efs<span class="w"> </span>delete-file-system<span class="w"> </span>--file-system-id<span class="w"> </span>fs-0abc...
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Las copias de AWS Backup sobreviven al sistema de archivos</p>
+<p>Los puntos de recuperación guardados en el almacén de AWS Backup <strong>no se borran</strong> al eliminar el sistema de archivos: siguen permitiendo restaurarlo y <strong>siguen generando coste</strong> hasta que caduca su retención o se eliminan.</p>
+</div>
+<hr />
+<h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
+<ul>
+<li>AWS. <em>Creating EFS file systems</em> — <a href="https://docs.aws.amazon.com/efs/latest/ug/creating-using-create-fs.html">Creación de sistemas de archivos</a></li>
+<li>AWS. <em>CreateFileSystem</em> — <a href="https://docs.aws.amazon.com/efs/latest/ug/API_CreateFileSystem.html">Referencia de la API</a></li>
+<li>AWS. <em>Creating and managing mount targets</em> — <a href="https://docs.aws.amazon.com/efs/latest/ug/manage-fs-access.html">Destinos de montaje</a></li>
+<li>AWS. <em>Deleting an EFS file system</em> — <a href="https://docs.aws.amazon.com/efs/latest/ug/delete-efs-fs.html">Eliminación</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.expand", "content.code.copy", "content.code.annotate", "content.tabs.link"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

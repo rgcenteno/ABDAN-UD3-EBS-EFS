@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="660" viewBox="0 0 1400 660">
+<defs><marker id="m232F3E" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#232F3E"/></marker><marker id="mED7100" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ED7100"/></marker><marker id="m3F8624" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3F8624"/></marker><marker id="m3B48CC" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3B48CC"/></marker><marker id="mDD344C" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#DD344C"/></marker><marker id="m545B64" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#545B64"/></marker><marker id="m8C4FFF" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8C4FFF"/></marker><filter id="sh" x="-5%" y="-5%" width="110%" height="120%"><feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="#000" flood-opacity="0.10"/></filter></defs>
+<rect x="0" y="0" width="1400" height="660" fill="#FFFFFF"/>
+<text x="40" y="52" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="28" font-weight="700" fill="#232F3E" text-anchor="start">Ciclo de vida de un volumen EBS y comandos asociados</text>
+<text x="40" y="84" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="16" font-weight="400" fill="#545B64" text-anchor="start">Estados que muestra la consola (Volume state) y operación de la AWS CLI que provoca cada transición</text>
+<rect x="80" y="170" width="220" height="70" rx="35" fill="#FFFFFF" stroke="#ED7100" stroke-width="1.6" filter="url(#sh)"/>
+<text x="190" y="212" font-family="'JetBrains Mono', Consolas, monospace" font-size="20" font-weight="700" fill="#ED7100" text-anchor="middle">creating</text>
+<rect x="420" y="170" width="220" height="70" rx="35" fill="#FFFFFF" stroke="#3F8624" stroke-width="1.6" filter="url(#sh)"/>
+<text x="530" y="212" font-family="'JetBrains Mono', Consolas, monospace" font-size="20" font-weight="700" fill="#3F8624" text-anchor="middle">available</text>
+<rect x="760" y="170" width="220" height="70" rx="35" fill="#FFFFFF" stroke="#3B48CC" stroke-width="1.6" filter="url(#sh)"/>
+<text x="870" y="212" font-family="'JetBrains Mono', Consolas, monospace" font-size="20" font-weight="700" fill="#3B48CC" text-anchor="middle">in-use</text>
+<rect x="1100" y="170" width="220" height="70" rx="35" fill="#FFFFFF" stroke="#DD344C" stroke-width="1.6" filter="url(#sh)"/>
+<text x="1210" y="212" font-family="'JetBrains Mono', Consolas, monospace" font-size="17" font-weight="700" fill="#DD344C" text-anchor="middle">deleting/deleted</text>
+<line x1="300" y1="205" x2="418" y2="205" stroke="#232F3E" stroke-width="2" marker-end="url(#m232F3E)"/>
+<text x="359" y="160" font-family="'JetBrains Mono', Consolas, monospace" font-size="13" font-weight="500" fill="#232F3E" text-anchor="middle">create-volume</text>
+<text x="359" y="260" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#545B64" text-anchor="middle">(automático)</text>
+<line x1="640" y1="190" x2="758" y2="190" stroke="#3B48CC" stroke-width="2" marker-end="url(#m3B48CC)"/>
+<text x="699" y="160" font-family="'JetBrains Mono', Consolas, monospace" font-size="13" font-weight="500" fill="#3B48CC" text-anchor="middle">attach-volume</text>
+<line x1="758" y1="222" x2="642" y2="222" stroke="#3F8624" stroke-width="2" marker-end="url(#m3F8624)"/>
+<text x="699" y="256" font-family="'JetBrains Mono', Consolas, monospace" font-size="13" font-weight="500" fill="#3F8624" text-anchor="middle">detach-volume</text>
+<path d="M530,170 C560,110 1090,110 1120,168" fill="none" stroke="#DD344C" stroke-width="2" marker-end="url(#mDD344C)"/>
+<text x="825" y="118" font-family="'JetBrains Mono', Consolas, monospace" font-size="13" font-weight="500" fill="#DD344C" text-anchor="middle">delete-volume (solo desde available)</text>
+<path d="M900,240 C980,300 1080,300 1150,242" fill="none" stroke="#DD344C" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#mDD344C)"/>
+<text x="1180" y="300" font-family="'JetBrains Mono', Consolas, monospace" font-size="12" font-weight="500" fill="#DD344C" text-anchor="middle">terminate-instances</text>
+<text x="1180" y="318" font-family="'JetBrains Mono', Consolas, monospace" font-size="12" font-weight="500" fill="#DD344C" text-anchor="middle">(DeleteOnTermination=true)</text>
+<rect x="600" y="360" width="380" height="250" rx="6" fill="#FFFFFF" stroke="#3B48CC" stroke-width="1.6" filter="url(#sh)"/>
+<text x="790" y="392" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="16" font-weight="700" fill="#3B48CC" text-anchor="middle">Operaciones con el volumen en uso</text>
+<text x="624" y="428" font-family="'JetBrains Mono', Consolas, monospace" font-size="14" font-weight="400" fill="#232F3E" text-anchor="start">modify-volume   tamaño, tipo, IOPS, MiB/s</text>
+<text x="624" y="456" font-family="'JetBrains Mono', Consolas, monospace" font-size="14" font-weight="400" fill="#232F3E" text-anchor="start">  └ growpart + xfs_growfs / resize2fs</text>
+<text x="624" y="484" font-family="'JetBrains Mono', Consolas, monospace" font-size="14" font-weight="400" fill="#232F3E" text-anchor="start">create-snapshot copia en un instante</text>
+<text x="624" y="512" font-family="'JetBrains Mono', Consolas, monospace" font-size="14" font-weight="400" fill="#232F3E" text-anchor="start">mount / umount  (en el sistema operativo)</text>
+<text x="624" y="540" font-family="'JetBrains Mono', Consolas, monospace" font-size="14" font-weight="400" fill="#232F3E" text-anchor="start">mount -o ro     modalidad solo lectura</text>
+<text x="624" y="568" font-family="'JetBrains Mono', Consolas, monospace" font-size="14" font-weight="400" fill="#232F3E" text-anchor="start">describe-volumes-modifications</text>
+<line x1="790" y1="242" x2="790" y2="358" stroke="#3B48CC" stroke-width="1.6" stroke-dasharray="4 4"/>
+<rect x="80" y="380" width="420" height="230" rx="6" fill="#FFFFFF" stroke="#8C4FFF" stroke-width="1.6" filter="url(#sh)"/>
+<text x="290" y="412" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="16" font-weight="700" fill="#8C4FFF" text-anchor="middle">Instantánea (snapshot)</text>
+<text x="104" y="446" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="400" fill="#232F3E" text-anchor="start">Ciclo de vida INDEPENDIENTE del volumen:</text>
+<text x="104" y="472" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="400" fill="#232F3E" text-anchor="start">sobrevive a su borrado.</text>
+<text x="104" y="498" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="400" fill="#232F3E" text-anchor="start">create-volume --snapshot-id  →  volumen</text>
+<text x="104" y="524" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="400" fill="#232F3E" text-anchor="start">nuevo en cualquier AZ de la región.</text>
+<text x="104" y="550" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="400" fill="#232F3E" text-anchor="start">copy-snapshot  →  otra región / cifrar.</text>
+<text x="104" y="576" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="400" fill="#232F3E" text-anchor="start">Papelera de reciclaje y nivel archive.</text>
+<line x1="190" y1="378" x2="190" y2="244" stroke="#8C4FFF" stroke-width="2" marker-end="url(#m8C4FFF)"/>
+<text x="240" y="320" font-family="'JetBrains Mono', Consolas, monospace" font-size="13" font-weight="500" fill="#8C4FFF" text-anchor="middle">restaurar</text>
+<text x="1100" y="640" font-family="Inter, 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="600" fill="#545B64" text-anchor="end">Antes de una operación destructiva: crear una instantánea</text>
+</svg>
