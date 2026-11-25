@@ -77,6 +77,7 @@ nav:
       - Rendimiento de EFS: "EFS-03.md"
   - "Prácticas":
       - Consideraciones comunes: "Practicas-comun.md"
+      - Comandos CF: "comandos-cloudformation.md"
       - Práctica 1: "Practica1.md"
       - Práctica 2: "Practica2.Ampliacion-EBS.md"
       - "[EVALUABLE] Práctica 3": "Practica3-EFS.md"

@@ -16,6 +16,8 @@ En esta práctica trabajaremos los siguientes contenidos:
 - Ampliar un volumen EBS existente y extender el sistema de archivos.
 - Ampliar el volumen raíz (disco de arranque) de una instancia EC2.
 
+Duración estimada: 1h
+
 ---
 
 ## Parte 1. Creación de la instancia EC2
